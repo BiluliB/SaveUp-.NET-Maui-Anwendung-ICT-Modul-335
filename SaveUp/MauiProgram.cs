@@ -1,6 +1,4 @@
-﻿using MauiIcons.Material;
-using MauiIcons.Material.Outlined;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 
 namespace SaveUp
 {
@@ -10,10 +8,7 @@ namespace SaveUp
         {
             var builder = MauiApp.CreateBuilder();
             builder
-                .UseMauiApp<App>()
-                // Initialises the .Net Maui Icons - Material
-                .UseMaterialMauiIcons()
-                .UseMaterialOutlinedMauiIcons()
+                .UseMauiApp<App>()             
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

@@ -1,4 +1,4 @@
-﻿using MauiIcons.Core;
+﻿
 
 namespace SaveUp
 {
@@ -9,7 +9,6 @@ namespace SaveUp
         public MainPage()
         {
             InitializeComponent();
-            _ = new MauiIcon();
         }
 
         

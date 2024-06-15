@@ -2,13 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:SaveUp.ViewModels"
-             xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
              x:Class="SaveUp.MainPage"
              x:Name="SaveUpPage"
              BindingContext="{x:Static local:MainPageViewModel.Instance}">
 
-    <Grid Padding="10" RowDefinitions="Auto, Auto, *, Auto">
-
+    <Grid Padding="10" RowDefinitions="Auto, Auto, *, Auto, Auto">
         <!-- Titel -->
         <Label Text="SaveUp" 
                Margin="0,0,0,10"
@@ -17,14 +15,14 @@
                Grid.Row="0" />
 
         <!-- Gesamt gespart -->
-        <Frame BorderColor="Black" Padding="10" Grid.Row="1" Margin="0,0,0,10">
+        <Frame BorderColor="LimeGreen"  Grid.Row="1" Margin="20,0,20,0">
             <Label Text="{Binding GesamtGespartText}"
-                   FontSize="Medium"
+                   FontSize="Large"
                    HorizontalOptions="Center"/>
         </Frame>
 
         <!-- Einsparungen heute -->
-        <Frame BorderColor="Black" Padding="10" Grid.Row="2">
+        <Frame BorderColor="Transparent"  Grid.Row="2">
             <StackLayout>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -32,74 +30,109 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Label Text="Einsparungen heute:"
-                           FontSize="Medium"
-                           VerticalOptions="Center"
-                           Grid.Column="0"/>
+                   Margin="0,0,0,10"
+                   FontSize="Medium"
+                   VerticalOptions="Center"
+                   Grid.Column="0"/>
                     <Label Text="{Binding HeuteGespartBetragText}"
-                           FontSize="Medium"
-                           FontAttributes="Bold"
-                           Margin="10,0,0,0"
-                           VerticalOptions="Center"
-                           Grid.Column="1"/>
+                   FontSize="Medium"
+                   FontAttributes="Bold"
+                   Margin="10,0,0,0"
+                   VerticalOptions="Center"
+                   Grid.Column="1"/>
                 </Grid>
 
                 <CollectionView ItemsSource="{Binding EinsparungenHeute}"
-                                VerticalOptions="FillAndExpand">
+                        VerticalOptions="FillAndExpand">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <SwipeView>
-                                <SwipeView.RightItems>
-                                    <SwipeItems>
-                                        <SwipeItem Text="Löschen" 
-                                                   BackgroundColor="Red" 
-                                                   Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference SaveUpPage}}" 
-                                                   CommandParameter="{Binding .}"/>
-                                    </SwipeItems>
-                                </SwipeView.RightItems>
-                                <Frame Padding="10" Margin="0,0,0,10" BorderColor="Gray" CornerRadius="5">
-                                    <Label Text="{Binding Beschreibung}"
-                                           FontSize="Medium"/>
-                                </Frame>
-                            </SwipeView>
+                            <StackLayout>
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItemView>
+                                                <Frame BorderColor="Gray" BackgroundColor="Red"
+                                               CornerRadius="5"
+                                               Padding="10"
+                                               HasShadow="False">
+                                                    <Grid>
+                                                        <Grid.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference SaveUpPage}}" CommandParameter="{Binding .}" />
+                                                        </Grid.GestureRecognizers>
+                                                        <Label Text="Löschen"
+                                                       TextColor="White"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center" />
+                                                    </Grid>
+                                                </Frame>
+                                            </SwipeItemView>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <Frame Padding="10" Margin="0,0,0,10" BorderColor="Gray" CornerRadius="5">
+                                        <Label Text="{Binding Beschreibung}"
+                                       FontSize="Medium"/>
+                                    </Frame>
+                                </SwipeView>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </StackLayout>
         </Frame>
 
+
+        <!-- Separator -->
+        <BoxView HeightRequest="1" Color="Gray" HorizontalOptions="FillAndExpand" Grid.Row="3" Margin="10,0,10,0"/>
+
         <!-- Buttons -->
-        <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Spacing="80" Margin="0,20,0,0">
+        <StackLayout Grid.Row="4" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Spacing="40" Margin="0,10,0,10">
             <!-- Home Button -->
-            <Button Text="{mi:MaterialOutlined Home, IconSize=Large, IconColor=White}"
-                    Command="{Binding HomeCommand}"
-                    BackgroundColor="Blue"
-                    WidthRequest="60"
-                    HeightRequest="60"
-                    CornerRadius="30"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
+            <StackLayout Grid.Column="0" HorizontalOptions="Center">
+                <ImageButton Source="{Binding HomeIconSource}"
+                             Command="{Binding HomeCommand}"
+                             BackgroundColor="Transparent"
+                             WidthRequest="50"
+                             HeightRequest="50"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"/>
+                <Label Text="Home" FontSize="Small" HorizontalOptions="Center" />
+            </StackLayout>
 
             <!-- List Button -->
-            <Button Text="{mi:MaterialOutlined Leaderboard, IconSize=Large, IconColor=White}"
-                    Command="{Binding ListCommand}"
-                    BackgroundColor="Green"
-                    WidthRequest="60"
-                    HeightRequest="60"
-                    CornerRadius="30"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
+            <StackLayout Grid.Column="1" HorizontalOptions="Center">
+                <ImageButton Source="{Binding ListIconSource}"
+                             Command="{Binding ListCommand}"
+                             BackgroundColor="Transparent"
+                             WidthRequest="50"
+                             HeightRequest="50"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"/>
+                <Label Text="List" FontSize="Small" HorizontalOptions="Center" />
+            </StackLayout>
 
             <!-- Add Button -->
-            <Button Text="{mi:Material Add, IconSize=Large, IconColor=White}"
-                    Command="{Binding AddCommand}"
-                    BackgroundColor="Orange"
-                    WidthRequest="60"
-                    HeightRequest="60"
-                    CornerRadius="30"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
+            <StackLayout Grid.Column="2" HorizontalOptions="Center">
+                <ImageButton Source="{Binding AddIconSource}" 
+                             Command="{Binding AddCommand}"
+                             BackgroundColor="Transparent"
+                             WidthRequest="50"
+                             HeightRequest="50"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"/>
+                <Label Text="Add" FontSize="Small" HorizontalOptions="Center" />
+            </StackLayout>
+
+            <!-- More Button -->
+            <StackLayout Grid.Column="3" HorizontalOptions="Center">
+                <ImageButton Source="{Binding MoreIconSource}"
+                             Command="{Binding MoreCommand}"
+                             BackgroundColor="Transparent"
+                             WidthRequest="50"
+                             HeightRequest="50"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"/>
+                <Label Text="More" FontSize="Small" HorizontalOptions="Center" />
+            </StackLayout>
         </StackLayout>
-
     </Grid>
-
 </ContentPage>

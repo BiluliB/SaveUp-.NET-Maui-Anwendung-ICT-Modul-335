@@ -17,6 +17,70 @@ namespace SaveUp.ViewModels
         private decimal _heuteGespart;
         public string HeuteGespartBetragText => $"{_heuteGespart:0.00} CHF";
 
+        private bool _isHomePage;
+        public bool IsHomePage
+        {
+            get => _isHomePage;
+            set
+            {
+                if (_isHomePage != value)
+                {
+                    _isHomePage = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(HomeIconSource));
+                }
+            }
+        }
+
+        private bool _isListPage;
+        public bool IsListPage
+        {
+            get => _isListPage;
+            set
+            {
+                if (_isListPage != value)
+                {
+                    _isListPage = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(ListIconSource));
+                }
+            }
+        }
+
+        private bool _isAddPage;
+        public bool IsAddPage
+        {
+            get => _isAddPage;
+            set
+            {
+                if (_isAddPage != value)
+                {
+                    _isAddPage = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _isMorePage;
+        public bool IsMorePage
+        {
+            get => _isMorePage;
+            set
+            {
+                if (_isMorePage != value)
+                {
+                    _isMorePage = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(MoreIconSource));
+                }
+            }
+        }
+
+        public string HomeIconSource => IsHomePage ? "Resources/Images/home_filled.png" : "Resources/Images/home.png";
+        public string ListIconSource => IsListPage ? "Resources/Images/list_filled.png" : "Resources/Images/list.png";
+        public string AddIconSource => IsAddPage ? "Resources/Images/add_filled.png" : "Resources/Images/add.png";
+        public string MoreIconSource => IsMorePage ? "Resources/Images/more.png" : "Resources/Images/more.png";
+
         public ObservableCollection<Einsparung> EinsparungenHeute { get; set; } = new ObservableCollection<Einsparung>();
 
         public ICommand HomeCommand { get; }
@@ -31,6 +95,9 @@ namespace SaveUp.ViewModels
             AddCommand = new Command(OnAdd);
             DeleteCommand = new Command<Einsparung>(OnDelete);
 
+            // Set initial state
+            IsHomePage = true; // Initially highlight the Home button
+
             // Simulate data loading
             LoadEinsparungen();
         }
@@ -42,6 +109,23 @@ namespace SaveUp.ViewModels
             EinsparungenHeute.Add(new Einsparung { Beschreibung = "Snack: 2.00 CHF" });
             EinsparungenHeute.Add(new Einsparung { Beschreibung = "Schoggi: 3.00 CHF" });
             EinsparungenHeute.Add(new Einsparung { Beschreibung = "RedBull: 2.50 CHF" });
+            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Kaffee: 4.50 CHF" });
+            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Snack: 2.00 CHF" });
+            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Schoggi: 3.00 CHF" });
+            EinsparungenHeute.Add(new Einsparung { Beschreibung = "RedBull: 2.50 CHF" });
+            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Kaffee: 4.50 CHF" });
+            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Snack: 2.00 CHF" });
+            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Schoggi: 3.00 CHF" });
+            EinsparungenHeute.Add(new Einsparung { Beschreibung = "RedBull: 2.50 CHF" });
+            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Kaffee: 4.50 CHF" });
+            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Snack: 2.00 CHF" });
+            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Schoggi: 3.00 CHF" });
+            EinsparungenHeute.Add(new Einsparung { Beschreibung = "RedBull: 2.50 CHF" });
+            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Kaffee: 4.50 CHF" });
+            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Snack: 2.00 CHF" });
+            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Schoggi: 3.00 CHF" });
+            EinsparungenHeute.Add(new Einsparung { Beschreibung = "RedBull: 2.50 CHF" });
+
 
             _gesamtGespart = 12.00m;
             _heuteGespart = 12.00m;
@@ -52,17 +136,21 @@ namespace SaveUp.ViewModels
 
         private void OnHome()
         {
-            // Navigation logic for Home
+            IsHomePage = true;
+            IsListPage = false;
+            IsAddPage = false;
         }
 
         private void OnList()
         {
-            // Navigation logic for List
+            IsHomePage = false;
+            IsListPage = true;
+            IsAddPage = false;
         }
 
         private void OnAdd()
         {
-            // Navigation logic for Add
+            // Funktionalität für Add Button
         }
 
         private void OnDelete(Einsparung einsparung)
