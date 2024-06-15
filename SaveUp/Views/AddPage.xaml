@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SaveUp.ViewModels"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Calendar;assembly=Syncfusion.Maui.Calendar"
+             x:Class="SaveUp.Views.AddPage"
+                x:Name="AddPageView"
+             BindingContext="{x:Static local:AddPageViewModel.Instance}">
+
+    <Grid Padding="10" RowDefinitions="Auto, *, Auto">
+
+        <!-- Titel -->
+        <Label Text="Artikel hinzufügen" 
+               Margin="0,0,0,10"
+               FontSize="Large" 
+               HorizontalOptions="Center" 
+               Grid.Row="0" />
+
+        <!-- Inhalt -->
+        <StackLayout Grid.Row="1" Spacing="20">
+            <!-- Datumsauswahl -->
+            <syncfusion:SfCalendar x:Name="calendar"
+                                   HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="CenterAndExpand"
+                                   SelectedDate="{Binding SelectedDate}" />
+
+            <!-- Kurzbeschreibung -->
+            <Entry Placeholder="Kurzbeschreibung:"
+                   Text="{Binding Kurzbeschreibung}"
+                   HorizontalOptions="FillAndExpand"/>
+
+            <!-- Preis -->
+            <Entry Placeholder="Preis in CHF:"
+                   Keyboard="Numeric"
+                   Text="{Binding Preis}"
+                   HorizontalOptions="FillAndExpand"/>
+        </StackLayout>
+
+        <!-- Buttons -->
+        <Grid Grid.Row="2" ColumnDefinitions="*,*,*"
+              HorizontalOptions="Center" VerticalOptions="End" Margin="0,20,0,10">
+
+            <!-- Home Button -->
+            <StackLayout Grid.Column="0" HorizontalOptions="Center">
+                <ImageButton Source="Resources/Images/home.png"
+                             Command="{Binding HomeCommand}"
+                             BackgroundColor="Transparent"
+                             WidthRequest="60"
+                             HeightRequest="60"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"/>
+                <Label Text="Home" FontSize="Small" HorizontalOptions="Center" />
+            </StackLayout>
+
+            <!-- Add Button -->
+            <StackLayout Grid.Column="1" HorizontalOptions="Center">
+                <ImageButton Source="Resources/Images/add.png"
+                             Command="{Binding AddCommand}"
+                             BackgroundColor="Transparent"
+                             WidthRequest="60"
+                             HeightRequest="60"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"/>
+                <Label Text="Add" FontSize="Small" HorizontalOptions="Center" />
+            </StackLayout>
+
+            <!-- Cancel Button -->
+            <StackLayout Grid.Column="2" HorizontalOptions="Center">
+                <ImageButton Source="Resources/Images/cancel.png"
+                             Command="{Binding CancelCommand}"
+                             BackgroundColor="Transparent"
+                             WidthRequest="60"
+                             HeightRequest="60"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"/>
+                <Label Text="Cancel" FontSize="Small" HorizontalOptions="Center" />
+            </StackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

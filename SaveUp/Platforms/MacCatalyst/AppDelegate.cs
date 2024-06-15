@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace SaveUp
+namespace SaveUp.Platforms.MacCatalyst
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

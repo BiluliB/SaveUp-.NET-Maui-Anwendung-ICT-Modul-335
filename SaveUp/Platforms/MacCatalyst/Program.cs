@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace SaveUp
+namespace SaveUp.Platforms.MacCatalyst
 {
     public class Program
     {

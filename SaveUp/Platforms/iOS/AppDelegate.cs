@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace SaveUp
+namespace SaveUp.Platforms.iOS
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

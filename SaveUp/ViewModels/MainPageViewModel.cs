@@ -139,6 +139,7 @@ namespace SaveUp.ViewModels
             IsHomePage = true;
             IsListPage = false;
             IsAddPage = false;
+            Application.Current.MainPage.Navigation.PopToRootAsync();
         }
 
         private void OnList()
@@ -146,11 +147,15 @@ namespace SaveUp.ViewModels
             IsHomePage = false;
             IsListPage = true;
             IsAddPage = false;
+            Application.Current.MainPage.Navigation.PushAsync(new SaveUp.Views.ListPage());
         }
 
         private void OnAdd()
         {
-            // Funktionalität für Add Button
+            IsHomePage = false;
+            IsListPage = false;
+            IsAddPage = true;
+            Application.Current.MainPage.Navigation.PushAsync(new SaveUp.Views.AddPage());
         }
 
         private void OnDelete(Einsparung einsparung)
