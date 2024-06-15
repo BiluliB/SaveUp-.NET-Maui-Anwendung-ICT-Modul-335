@@ -57,6 +57,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AathifMahir.Maui.MauiIcons.Core" Version="3.0.0" />
+		<PackageReference Include="AathifMahir.Maui.MauiIcons.Material" Version="3.0.0" />
+		<PackageReference Include="AathifMahir.Maui.MauiIcons.Material.Outlined" Version="3.0.0" />
+		<PackageReference Include="AathifMahir.Maui.MauiIcons.Material.Rounded" Version="3.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />

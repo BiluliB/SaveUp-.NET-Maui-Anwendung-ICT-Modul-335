@@ -1,59 +1,105 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SaveUp.MainPage">
+             xmlns:local="clr-namespace:SaveUp.ViewModels"
+             xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
+             x:Class="SaveUp.MainPage"
+             x:Name="SaveUpPage"
+             BindingContext="{x:Static local:MainPageViewModel.Instance}">
 
-    <StackLayout Padding="10">
+    <Grid Padding="10" RowDefinitions="Auto, Auto, *, Auto">
 
         <!-- Titel -->
         <Label Text="SaveUp" 
+               Margin="0,0,0,10"
                FontSize="Large" 
                HorizontalOptions="Center" 
-               Margin="0,20,0,20"/>
-
-        <!-- Begrüßung und Erklärung -->
-        <Label Text="Willkommen bei SaveUp! Verfolgen Sie Ihre Einsparungen."
-               FontSize="Medium"
-               HorizontalOptions="Center"
-               Margin="0,0,0,20"/>
+               Grid.Row="0" />
 
         <!-- Gesamt gespart -->
-        <Frame BorderColor="Black" Padding="10">
-            <Label Text="Gesamt gespart: 0.00 CHF"
+        <Frame BorderColor="Black" Padding="10" Grid.Row="1" Margin="0,0,0,10">
+            <Label Text="{Binding GesamtGespartText}"
                    FontSize="Medium"
                    HorizontalOptions="Center"/>
         </Frame>
 
         <!-- Einsparungen heute -->
-        <Frame BorderColor="Black" Padding="10" Margin="0,20,0,20">
+        <Frame BorderColor="Black" Padding="10" Grid.Row="2">
             <StackLayout>
-                <Label Text="Einsparungen heute:"
-                       FontSize="Medium"
-                       HorizontalOptions="Start"/>
-                <ScrollView HeightRequest="100">
-                    <StackLayout>
-                        <Label Text="- Kaffee: 4.50 CHF" FontSize="Small"/>
-                        <Label Text="- Snack: 2.00 CHF" FontSize="Small"/>
-                        <Label Text="- Schoggi: 3.00 CHF" FontSize="Small"/>
-                        <Label Text="- RedBull: 2.50 CHF" FontSize="Small"/>
-                    </StackLayout>
-                </ScrollView>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Einsparungen heute:"
+                           FontSize="Medium"
+                           VerticalOptions="Center"
+                           Grid.Column="0"/>
+                    <Label Text="{Binding HeuteGespartBetragText}"
+                           FontSize="Medium"
+                           FontAttributes="Bold"
+                           Margin="10,0,0,0"
+                           VerticalOptions="Center"
+                           Grid.Column="1"/>
+                </Grid>
+
+                <CollectionView ItemsSource="{Binding EinsparungenHeute}"
+                                VerticalOptions="FillAndExpand">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="Löschen" 
+                                                   BackgroundColor="Red" 
+                                                   Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference SaveUpPage}}" 
+                                                   CommandParameter="{Binding .}"/>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <Frame Padding="10" Margin="0,0,0,10" BorderColor="Gray" CornerRadius="5">
+                                    <Label Text="{Binding Beschreibung}"
+                                           FontSize="Medium"/>
+                                </Frame>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </StackLayout>
         </Frame>
 
-        <!-- Heute gespart -->
-        <Frame BorderColor="Black" Padding="10">
-            <Label Text="Heute gespart: 0.00 CHF"
-                   FontSize="Medium"
-                   HorizontalOptions="Center"/>
-        </Frame>
-
         <!-- Buttons -->
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,20,0,0">
-            <Button Text="Artikel hinzufügen" HorizontalOptions="Center" />
-            <Button Text="Liste aller Artikel" HorizontalOptions="Center" Margin="20,0,0,0"/>
+        <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Spacing="80" Margin="0,20,0,0">
+            <!-- Home Button -->
+            <Button Text="{mi:MaterialOutlined Home, IconSize=Large, IconColor=White}"
+                    Command="{Binding HomeCommand}"
+                    BackgroundColor="Blue"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    CornerRadius="30"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+
+            <!-- List Button -->
+            <Button Text="{mi:MaterialOutlined Leaderboard, IconSize=Large, IconColor=White}"
+                    Command="{Binding ListCommand}"
+                    BackgroundColor="Green"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    CornerRadius="30"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+
+            <!-- Add Button -->
+            <Button Text="{mi:Material Add, IconSize=Large, IconColor=White}"
+                    Command="{Binding AddCommand}"
+                    BackgroundColor="Orange"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    CornerRadius="30"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
         </StackLayout>
 
-    </StackLayout>
+    </Grid>
 
 </ContentPage>
