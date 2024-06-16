@@ -3,7 +3,7 @@
     public class SavedMoneyCreateDTO
     {
         public string Description { get; set; }
-        public decimal Amount { get; set; }
+        public double Price { get; set; }
         public DateTime Date { get; set; }
     }
 }

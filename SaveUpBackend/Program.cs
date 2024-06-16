@@ -1,4 +1,4 @@
-
+using SaveUpBackend.Services;
 using SaveUpBackend.Data;
 using SaveUpBackend.Interfaces;
 using Serilog;
@@ -25,7 +25,7 @@ namespace SaveUpBackend
             builder.Services.AddScoped<IMongoDbContext, MongoDbContext>();
 
             // Add services to the container.
-            //builder.Services.AddScoped<ISavedMoneyService, SavedMoneyService>();
+            builder.Services.AddScoped<ISavedMoneyService, SavedMoneyService>();
 
             builder.Services.AddControllers();
 
