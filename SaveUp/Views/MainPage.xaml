@@ -6,7 +6,7 @@
              x:Name="MainPageView"
              BindingContext="{x:Static local:MainPageViewModel.Instance}">
 
-    <Grid Padding="10" RowDefinitions="Auto, Auto, *">
+    <Grid Padding="10" RowDefinitions="Auto, Auto, *" BackgroundColor="White" >
         <!-- Titel -->
         <Label Text="SaveUp" 
                Margin="0,0,0,10"
@@ -14,12 +14,7 @@
                HorizontalOptions="Center" 
                Grid.Row="0" />
 
-        <!-- Gesamt gespart -->
-        <Frame BorderColor="LimeGreen" Grid.Row="1" Margin="15,0,15,0">
-            <Label Text="{Binding GesamtGespartText}"
-                   FontSize="Large"
-                   HorizontalOptions="Center"/>
-        </Frame>
+        
 
         <!-- Einsparungen heute -->
         <StackLayout Grid.Row="2" VerticalOptions="FillAndExpand" Spacing="0" Margin="15,10,15,0">
@@ -41,11 +36,11 @@
                        Grid.Column="1"/>
             </Grid>
 
-            <CollectionView ItemsSource="{Binding EinsparungenHeute}"
+            <CollectionView ItemsSource="{Binding EinsparungenHeute}" 
                             VerticalOptions="FillAndExpand"
                             
                             BackgroundColor="Transparent">
-                <CollectionView.ItemTemplate>
+                <CollectionView.ItemTemplate >
                     <DataTemplate>
                         <SwipeView>
                             <SwipeView.RightItems>
@@ -68,7 +63,7 @@
                                     </SwipeItemView>
                                 </SwipeItems>
                             </SwipeView.RightItems>
-                            <Frame Margin="0,0,0,10" BorderColor="Gray" CornerRadius="5">
+                            <Frame Margin="0,0,0,10" BorderColor="LightGray" CornerRadius="5" BackgroundColor="#F1F5F9" >
                                 <Label Text="{Binding Beschreibung}"
                                        FontSize="Medium"/>
                             </Frame>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using SaveUp.Helper;
 using Syncfusion.Maui.Core.Hosting;
 
 namespace SaveUp
@@ -9,6 +10,9 @@ namespace SaveUp
         {
 
             var builder = MauiApp.CreateBuilder();
+
+            ResourceManager.RegisterSyncfusionLicense();
+
             builder
                 .UseMauiApp<App>()
                 .ConfigureSyncfusionCore()

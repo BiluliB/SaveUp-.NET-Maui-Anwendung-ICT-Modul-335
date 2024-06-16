@@ -5,9 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:SaveUp.Views"
     Shell.FlyoutBehavior="Disabled"
-    Shell.TabBarBackgroundColor="DimGray"
-    Shell.TabBarTitleColor="White"
-    Shell.TabBarUnselectedColor="FloralWhite"
+    Shell.TabBarBackgroundColor="White"
+    Shell.TabBarTitleColor="Black"
+    Shell.TabBarUnselectedColor="#262626"
+    Shell.TabBarForegroundColor="#3730A3"
     Title="SaveUp">
 
     <TabBar>

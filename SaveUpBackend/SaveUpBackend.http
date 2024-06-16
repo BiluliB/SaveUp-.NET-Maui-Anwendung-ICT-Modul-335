@@ -1,0 +1,6 @@
+@SaveUpBackend_HostAddress = http://localhost:5035
+
+GET {{SaveUpBackend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

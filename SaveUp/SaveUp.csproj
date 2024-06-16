@@ -60,14 +60,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="syncfusion_license.txt" />
+	  <None Remove="Resources/syncfusion_license.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="Resources\syncfusion_license.txt">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
+		<EmbeddedResource Include="Resources\syncfusion_license.txt" />
 	</ItemGroup>
+
+	
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
@@ -88,6 +88,10 @@
 	  <MauiXaml Update="Views\MorePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="NewFolder\" />
 	</ItemGroup>
 
 </Project>
