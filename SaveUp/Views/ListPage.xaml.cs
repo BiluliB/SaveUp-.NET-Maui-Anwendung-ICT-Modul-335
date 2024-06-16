@@ -1,4 +1,5 @@
-namespace SaveUp.Views;
+namespace SaveUp.Views
+{ 
 
 public partial class ListPage : ContentPage
 {
@@ -6,4 +7,5 @@ public partial class ListPage : ContentPage
 	{
 		InitializeComponent();
 	}
+}
 }

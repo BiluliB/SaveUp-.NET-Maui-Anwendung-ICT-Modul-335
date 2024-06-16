@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SaveUp.ViewModels"
+             x:Class="SaveUp.Views.MainPage"
+             x:Name="MainPageView"
+             BindingContext="{x:Static local:MainPageViewModel.Instance}">
+
+    <Grid Padding="10" RowDefinitions="Auto, Auto, *">
+        <!-- Titel -->
+        <Label Text="SaveUp" 
+               Margin="0,0,0,10"
+               FontSize="Large" 
+               HorizontalOptions="Center" 
+               Grid.Row="0" />
+
+        <!-- Gesamt gespart -->
+        <Frame BorderColor="LimeGreen" Grid.Row="1" Margin="15,0,15,0">
+            <Label Text="{Binding GesamtGespartText}"
+                   FontSize="Large"
+                   HorizontalOptions="Center"/>
+        </Frame>
+
+        <!-- Einsparungen heute -->
+        <StackLayout Grid.Row="2" VerticalOptions="FillAndExpand" Spacing="0" Margin="15,10,15,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Einsparungen heute:"
+                       Margin="0,0,0,10"
+                       FontSize="Medium"
+                       VerticalOptions="Center"
+                       Grid.Column="0"/>
+                <Label Text="{Binding HeuteGespartBetragText}"
+                       FontSize="Medium"
+                       FontAttributes="Bold"
+                       Margin="10,0,0,0"
+                       VerticalOptions="Center"
+                       Grid.Column="1"/>
+            </Grid>
+
+            <CollectionView ItemsSource="{Binding EinsparungenHeute}"
+                            VerticalOptions="FillAndExpand"
+                            
+                            BackgroundColor="Transparent">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItemView>
+                                        <Frame BorderColor="Gray" BackgroundColor="Red"
+                                               CornerRadius="5"
+                                               Padding="10"
+                                               HasShadow="False">
+                                            <Grid>
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference MainPageView}}" CommandParameter="{Binding .}" />
+                                                </Grid.GestureRecognizers>
+                                                <Label Text="Löschen"
+                                                       TextColor="White"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center" />
+                                            </Grid>
+                                        </Frame>
+                                    </SwipeItemView>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Frame Margin="0,0,0,10" BorderColor="Gray" CornerRadius="5">
+                                <Label Text="{Binding Beschreibung}"
+                                       FontSize="Medium"/>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </Grid>
+</ContentPage>

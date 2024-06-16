@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using Microsoft.Maui.Controls;
 
 namespace SaveUp.ViewModels
 {
@@ -40,32 +38,66 @@ namespace SaveUp.ViewModels
             ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
             ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
             ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
+            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
 
             _gesamtGespart = 12.00m;
 
             OnPropertyChanged(nameof(GesamtGespartText));
         }
 
-        private void OnHome()
+        private async void OnHome()
         {
-            // Navigation logic for Home
-            Application.Current.MainPage.Navigation.PopToRootAsync();
+            await Shell.Current.GoToAsync("//home");
         }
 
-        private void OnList()
+        private async void OnList()
         {
-            // Navigation logic for List
+            await Shell.Current.GoToAsync("//list");
         }
 
-        private void OnAdd()
+        private async void OnAdd()
         {
-            // Navigation logic for Add
-            Application.Current.MainPage.Navigation.PushAsync(new Views.AddPage());
+            await Shell.Current.GoToAsync("//add");
         }
 
-        private void OnMore()
+        private async void OnMore()
         {
-            // Navigation logic for More
+            await Shell.Current.GoToAsync("//more");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

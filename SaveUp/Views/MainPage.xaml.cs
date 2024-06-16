@@ -1,17 +1,16 @@
 ﻿
 
-namespace SaveUp
+namespace SaveUp.Views
 {
+
     public partial class MainPage : ContentPage
     {
-       
+
 
         public MainPage()
         {
             InitializeComponent();
         }
-
-        
     }
-
+    
 }

@@ -4,30 +4,48 @@
     {
         public App()
         {
-            // Pfad zur Lizenzdatei
-            string licenseFilePath = Path.Combine(FileSystem.AppDataDirectory, "syncfusion_license.txt");
-
-            if (File.Exists(licenseFilePath))
-            {
-                string licenseKey = File.ReadAllText(licenseFilePath).Trim();
-                if (!string.IsNullOrEmpty(licenseKey))
-                {
-                    Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(licenseKey);
-                    Console.WriteLine("Syncfusion License Key registered successfully.");
-                }
-                else
-                {
-                    Console.WriteLine("Syncfusion License Key is empty.");
-                }
-            }
-            else
-            {
-                Console.WriteLine($"License file not found: {licenseFilePath}");
-            }
-
             InitializeComponent();
 
+            // Register Syncfusion license
+            RegisterSyncfusionLicense();
+
             MainPage = new AppShell();
+        }
+
+        private void RegisterSyncfusionLicense()
+        {
+            try
+            {
+                // Get the path to the license file
+                var assembly = typeof(App).Assembly;
+                string resourceName = "SaveUp.Resources.syncfusion_license.txt";
+
+                // Debugging: Print available resource names
+                foreach (var resource in assembly.GetManifestResourceNames())
+                {
+                    Console.WriteLine(resource);
+                }
+
+                using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+                {
+                    if (stream != null)
+                    {
+                        using (StreamReader reader = new StreamReader(stream))
+                        {
+                            string licenseKey = reader.ReadToEnd().Trim();
+                            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(licenseKey);
+                        }
+                    }
+                    else
+                    {
+                        throw new FileNotFoundException($"The embedded resource '{resourceName}' was not found.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading Syncfusion license: {ex.Message}");
+            }
         }
     }
 }
