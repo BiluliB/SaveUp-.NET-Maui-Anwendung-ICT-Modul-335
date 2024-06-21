@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SaveUp.Helper
+namespace SaveUp.Common.Helper
 {
     public class ResourceManager
     {

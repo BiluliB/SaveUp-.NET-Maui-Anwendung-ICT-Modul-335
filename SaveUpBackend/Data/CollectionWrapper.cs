@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using SaveUpBackend.Common;
-using SaveUpBackend.Models;
-using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using SaveUpBackend.Common;
+using SaveUpModels.Models;
 using System.Reflection;
 
 namespace SaveUpBackend.Data

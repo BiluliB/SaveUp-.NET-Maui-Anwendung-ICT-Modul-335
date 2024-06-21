@@ -2,7 +2,7 @@
 
 using MongoDB.Driver;
 using SaveUpBackend.Interfaces;
-using SaveUpBackend.Models;
+using SaveUpModels.Models;
 
 namespace SaveUpBackend.Data
 {

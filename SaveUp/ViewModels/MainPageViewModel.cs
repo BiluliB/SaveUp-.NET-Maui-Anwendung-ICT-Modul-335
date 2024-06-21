@@ -3,13 +3,12 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
+using SaveUp.Interfaces;
 
 namespace SaveUp.ViewModels
 {
     public class MainPageViewModel : INotifyPropertyChanged
-    {
-        private static MainPageViewModel _instance;
-        public static MainPageViewModel Instance => _instance ??= new MainPageViewModel();
+    {        
 
         private decimal _gesamtGespart;
         public string GesamtGespartText => $"Gesamt gespart: {_gesamtGespart:0.00} CHF";
@@ -83,16 +82,17 @@ namespace SaveUp.ViewModels
 
         public ObservableCollection<Einsparung> EinsparungenHeute { get; set; } = new ObservableCollection<Einsparung>();
 
+        private readonly ISavedMoneyServiceAPI _savedMoneyService;
+
         public ICommand HomeCommand { get; }
         public ICommand ListCommand { get; }
         public ICommand AddCommand { get; }
         public ICommand DeleteCommand { get; }
 
-        public MainPageViewModel()
+        public MainPageViewModel(ISavedMoneyServiceAPI savedMoneyService)
         {
-            HomeCommand = new Command(OnHome);
-            ListCommand = new Command(OnList);
-            AddCommand = new Command(OnAdd);
+            _savedMoneyService = savedMoneyService;
+
             DeleteCommand = new Command<Einsparung>(OnDelete);
 
             // Set initial state
@@ -102,60 +102,23 @@ namespace SaveUp.ViewModels
             LoadEinsparungen();
         }
 
-        private void LoadEinsparungen()
+        private async Task LoadEinsparungen()
         {
-            // Hier sollten die Daten aus der Datenbank geladen werden
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Kaffee: 4.50 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Snack: 2.00 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Schoggi: 3.00 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "RedBull: 2.50 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Kaffee: 4.50 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Snack: 2.00 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Schoggi: 3.00 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "RedBull: 2.50 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Kaffee: 4.50 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Snack: 2.00 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Schoggi: 3.00 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "RedBull: 2.50 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Kaffee: 4.50 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Snack: 2.00 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Schoggi: 3.00 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "RedBull: 2.50 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Kaffee: 4.50 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Snack: 2.00 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "Schoggi: 3.00 CHF" });
-            EinsparungenHeute.Add(new Einsparung { Beschreibung = "RedBull: 2.50 CHF" });
+            var content = await _savedMoneyService.GetAllAsync();
+            if (content.IsSuccess)
+            {
+                var parsed = await content.ParseSuccess();
 
-
-            _gesamtGespart = 12.00m;
-            _heuteGespart = 12.00m;
+                foreach (var item in parsed)
+                {
+                    EinsparungenHeute.Add(new Einsparung { Beschreibung = item.Description, Price = $"{item.Price:F2}" });
+                    _gesamtGespart += item.Price;
+                    _heuteGespart += item.Price;
+                }
+            }
 
             OnPropertyChanged(nameof(GesamtGespartText));
             OnPropertyChanged(nameof(HeuteGespartBetragText));
-        }
-
-        private void OnHome()
-        {
-            IsHomePage = true;
-            IsListPage = false;
-            IsAddPage = false;
-            Application.Current.MainPage.Navigation.PopToRootAsync();
-        }
-
-        private void OnList()
-        {
-            IsHomePage = false;
-            IsListPage = true;
-            IsAddPage = false;
-            Application.Current.MainPage.Navigation.PushAsync(new SaveUp.Views.ListPage());
-        }
-
-        private void OnAdd()
-        {
-            IsHomePage = false;
-            IsListPage = false;
-            IsAddPage = true;
-            Application.Current.MainPage.Navigation.PushAsync(new SaveUp.Views.AddPage());
         }
 
         private void OnDelete(Einsparung einsparung)
@@ -181,5 +144,6 @@ namespace SaveUp.ViewModels
     public class Einsparung
     {
         public string Beschreibung { get; set; }
+        public string Price { get; set; }
     }
 }

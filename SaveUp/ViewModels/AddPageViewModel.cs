@@ -53,33 +53,24 @@ namespace SaveUp.ViewModels
             }
         }
 
-        public ICommand HomeCommand { get; }
         public ICommand AddCommand { get; }
         public ICommand CancelCommand { get; }
 
         public AddPageViewModel()
         {
-            HomeCommand = new Command(OnHome);
             AddCommand = new Command(OnAdd);
             CancelCommand = new Command(OnCancel);
         }
 
-        private void OnHome()
-        {
-            // Navigate to Home Page
-            Application.Current.MainPage.Navigation.PopToRootAsync();
-        }
-
         private void OnAdd()
         {
-            // Add the item logic
-            // Save to database or perform other actions
+            // Logik für das Hinzufügen
             Application.Current.MainPage.Navigation.PopAsync();
         }
 
         private void OnCancel()
         {
-            // Cancel and go back to the previous page
+            // Logik für das Abbrechen
             Application.Current.MainPage.Navigation.PopAsync();
         }
 

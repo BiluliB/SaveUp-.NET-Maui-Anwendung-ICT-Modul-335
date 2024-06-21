@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using MongoDB.Bson;
-using SaveUpBackend.DTOs.Responses;
-using SaveUpBackend.DTOs.Requests;
-using SaveUpBackend.Models;
 using SaveUpBackend.Interfaces;
-using System.Security.Cryptography.X509Certificates;
+using SaveUpModels.DTOs.Requests;
+using SaveUpModels.DTOs.Responses;
+using SaveUpModels.Models;
 
 namespace SaveUpBackend.Services
 {

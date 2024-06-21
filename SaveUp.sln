@@ -5,7 +5,9 @@ VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaveUp", "SaveUp\SaveUp.csproj", "{14BD62B4-03B5-4BFD-9C38-7838CA52FC8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveUpBackend", "SaveUpBackend\SaveUpBackend.csproj", "{CA41A1DA-49EF-4B09-9330-310064F0CE3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaveUpBackend", "SaveUpBackend\SaveUpBackend.csproj", "{CA41A1DA-49EF-4B09-9330-310064F0CE3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveUpModels", "SaveUpModels\SaveUpModels.csproj", "{EA4368B5-4A43-447F-A9F7-AFF3184A8FBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{CA41A1DA-49EF-4B09-9330-310064F0CE3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA41A1DA-49EF-4B09-9330-310064F0CE3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA41A1DA-49EF-4B09-9330-310064F0CE3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA4368B5-4A43-447F-A9F7-AFF3184A8FBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA4368B5-4A43-447F-A9F7-AFF3184A8FBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA4368B5-4A43-447F-A9F7-AFF3184A8FBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA4368B5-4A43-447F-A9F7-AFF3184A8FBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

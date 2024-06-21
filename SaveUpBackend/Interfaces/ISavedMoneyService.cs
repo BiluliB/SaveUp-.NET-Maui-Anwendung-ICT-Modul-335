@@ -1,5 +1,5 @@
-﻿using SaveUpBackend.DTOs.Responses;
-using SaveUpBackend.DTOs.Requests;
+﻿using SaveUpModels.DTOs.Requests;
+using SaveUpModels.DTOs.Responses;
 
 namespace SaveUpBackend.Interfaces
 {

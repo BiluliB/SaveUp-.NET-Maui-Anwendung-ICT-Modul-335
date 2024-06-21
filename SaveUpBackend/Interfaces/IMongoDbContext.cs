@@ -1,5 +1,5 @@
 ﻿using SaveUpBackend.Data;
-using SaveUpBackend.Models;
+using SaveUpModels.Models;
 
 namespace SaveUpBackend.Interfaces
 {

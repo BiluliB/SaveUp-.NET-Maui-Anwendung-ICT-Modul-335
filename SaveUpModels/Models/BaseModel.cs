@@ -1,7 +1,7 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
-namespace SaveUpBackend.Models
+namespace SaveUpModels.Models
 {
     /// <summary>
     /// Base model for all models

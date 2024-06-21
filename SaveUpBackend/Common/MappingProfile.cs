@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using SaveUpBackend.DTOs.Responses;
-using SaveUpBackend.DTOs.Requests;
-using SaveUpBackend.Models;
+using SaveUpModels.DTOs.Requests;
+using SaveUpModels.DTOs.Responses;
+using SaveUpModels.Models;
 
 namespace SaveUpBackend.Common
 {

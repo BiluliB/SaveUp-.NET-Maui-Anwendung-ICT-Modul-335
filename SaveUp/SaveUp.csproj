@@ -73,9 +73,16 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
 		<PackageReference Include="Svg" Version="3.4.7" />
 		<PackageReference Include="Syncfusion.Maui.Calendar" Version="26.1.35" />
+	</ItemGroup>
+
+	
+
+	<ItemGroup>
+	  <ProjectReference Include="..\SaveUpModels\SaveUpModels.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -88,10 +95,6 @@
 	  <MauiXaml Update="Views\MorePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="NewFolder\" />
 	</ItemGroup>
 
 </Project>

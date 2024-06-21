@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SaveUp.ViewModels
+namespace SaveUp.Interfaces
 {
-    public class MorePageViewModel
+    public interface IUpdate
     {
     }
 }

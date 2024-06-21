@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:SaveUp.ViewModels"
              x:Class="SaveUp.Views.MainPage"
-             x:Name="MainPageView"
-             BindingContext="{x:Static local:MainPageViewModel.Instance}">
+             x:Name="MainPageView">
 
     <Grid Padding="10" RowDefinitions="Auto, Auto, *" BackgroundColor="White" >
         <!-- Titel -->
@@ -63,10 +62,15 @@
                                     </SwipeItemView>
                                 </SwipeItems>
                             </SwipeView.RightItems>
+                            <Grid>
                             <Frame Margin="0,0,0,10" BorderColor="LightGray" CornerRadius="5" BackgroundColor="#F1F5F9" >
-                                <Label Text="{Binding Beschreibung}"
-                                       FontSize="Medium"/>
+                                <HorizontalStackLayout>
+                                    <Label Text="{Binding Beschreibung}" FontSize="Medium"/>
+                                    <Label Text=":" FontSize="Medium" />
+                                    <Label Text="{Binding Price}" FontSize="Medium" />
+                                </HorizontalStackLayout>
                             </Frame>
+                            </Grid>
                         </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

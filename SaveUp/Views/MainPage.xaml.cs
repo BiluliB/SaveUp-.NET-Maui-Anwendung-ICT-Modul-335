@@ -1,5 +1,7 @@
 ﻿
 
+using SaveUp.ViewModels;
+
 namespace SaveUp.Views
 {
 
@@ -7,9 +9,10 @@ namespace SaveUp.Views
     {
 
 
-        public MainPage()
+        public MainPage(MainPageViewModel viewModel)
         {
             InitializeComponent();
+            BindingContext = viewModel;
         }
     }
     

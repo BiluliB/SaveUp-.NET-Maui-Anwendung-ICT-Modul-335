@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
-using SaveUpBackend.DTOs.Requests;
-using SaveUpBackend.DTOs.Responses;
 using SaveUpBackend.Interfaces;
+using SaveUpModels.DTOs.Requests;
+using SaveUpModels.DTOs.Responses;
 
 namespace SaveUpBackend.Controllers
 {
