@@ -26,7 +26,15 @@ namespace SaveUp.Models
                 }
                 else
                 {
+<<<<<<< Updated upstream
                     Debug.WriteLine("SkiService-WARNING: Response was null");
+=======
+<<<<<<< HEAD
+                    Debug.WriteLine("SaveUp-WARNING: Response was null");
+=======
+                    Debug.WriteLine("SkiService-WARNING: Response was null");
+>>>>>>> 7e7b26512df3c794c9e651cf2f0e699890ec4b86
+>>>>>>> Stashed changes
                     _response = new HttpResponseMessage(HttpStatusCode.InternalServerError);
                 }
             }

@@ -5,7 +5,7 @@
              x:Class="SaveUp.Views.MainPage"
              x:Name="MainPageView">
 
-    <Grid Padding="10" RowDefinitions="Auto, Auto, *" BackgroundColor="White" >
+    <Grid Padding="10" RowDefinitions="Auto, Auto, *" BackgroundColor="White">
         <!-- Titel -->
         <Label Text="SaveUp" 
                Margin="0,0,0,10"
@@ -13,7 +13,12 @@
                HorizontalOptions="Center" 
                Grid.Row="0" />
 
-        
+        <!-- Fehlermeldung -->
+        <Label Text="{Binding ErrorMessage}"
+               TextColor="Red"
+               HorizontalOptions="Center"
+               IsVisible="{Binding IsErrorVisible}"
+               Grid.Row="1" />
 
         <!-- Einsparungen heute -->
         <StackLayout Grid.Row="2" VerticalOptions="FillAndExpand" Spacing="0" Margin="15,10,15,0">
@@ -35,6 +40,49 @@
                        Grid.Column="1"/>
             </Grid>
 
+<<<<<<< HEAD
+            <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
+                <CollectionView ItemsSource="{Binding EinsparungenHeute}" 
+                                VerticalOptions="FillAndExpand"
+                                BackgroundColor="Transparent">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItemView>
+                                            <Frame BorderColor="Gray" BackgroundColor="Red"
+                                                   CornerRadius="5"
+                                                   Padding="10"
+                                                   HasShadow="False">
+                                                <Grid>
+                                                    <Grid.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference MainPageView}}" CommandParameter="{Binding .}" />
+                                                    </Grid.GestureRecognizers>
+                                                    <Label Text="Löschen"
+                                                           TextColor="White"
+                                                           HorizontalOptions="Center"
+                                                           VerticalOptions="Center" />
+                                                </Grid>
+                                            </Frame>
+                                        </SwipeItemView>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <Grid>
+                                    <Frame Margin="0,0,0,10" BorderColor="LightGray" CornerRadius="5" BackgroundColor="#F1F5F9" >
+                                        <HorizontalStackLayout>
+                                            <Label Text="{Binding Beschreibung}" FontSize="Medium"/>
+                                            <Label Text=":" FontSize="Medium" />
+                                            <Label Text="{Binding Price}" FontSize="Medium" />
+                                        </HorizontalStackLayout>
+                                    </Frame>
+                                </Grid>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+=======
             <CollectionView ItemsSource="{Binding EinsparungenHeute}" 
                             VerticalOptions="FillAndExpand"
                             
@@ -75,6 +123,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+>>>>>>> 7e7b26512df3c794c9e651cf2f0e699890ec4b86
         </StackLayout>
     </Grid>
 </ContentPage>
