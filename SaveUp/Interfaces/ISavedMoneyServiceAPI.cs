@@ -8,5 +8,6 @@ namespace SaveUp.Interfaces
     {
         Task<HTTPResponse<SavedMoneyDTO>> CreateAsync(SavedMoneyCreateDTO savedMoneyCreateDTO);
         Task<HTTPResponse<List<SavedMoneyDTO>>> GetAllAsync();
+        Task<HTTPResponse<List<SavedMoneyDTO>>> GetTodayAsync();
     }
 }

@@ -86,6 +86,29 @@ namespace SaveUpBackend.Controllers
                 {
                     return BadRequest("Invalid Id format.");
                 }
-            }        
+            }
+
+            [HttpGet("today")]
+            [ProducesResponseType(typeof(List<SavedMoneyDTO>), StatusCodes.Status200OK)]
+            [ProducesResponseType(StatusCodes.Status404NotFound)]
+            public async Task<ActionResult<List<SavedMoneyDTO>>> GetToday()
+            {
+                try
+                {
+                    var today = DateTime.UtcNow.Date;
+                    var savedMoneyDTOs = await _savedMoneyService.GetByDateAsync(today);
+
+                    if (savedMoneyDTOs == null || savedMoneyDTOs.Count == 0)
+                    {
+                        return NotFound("No entries found for today.");
+                    }
+
+                    return Ok(savedMoneyDTOs);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
     }
 }

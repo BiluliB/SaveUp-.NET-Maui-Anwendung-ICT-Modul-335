@@ -80,7 +80,7 @@ namespace SaveUp.ViewModels
                 _heuteGespart = 0;
                 ErrorMessage = string.Empty;
 
-                var content = await _savedMoneyService.GetAllAsync();
+                var content = await _savedMoneyService.GetTodayAsync();
                 if (content.IsSuccess)
                 {
                     var parsed = await content.ParseSuccess();

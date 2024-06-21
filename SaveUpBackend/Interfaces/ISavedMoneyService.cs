@@ -1,5 +1,8 @@
 ﻿using SaveUpModels.DTOs.Requests;
 using SaveUpModels.DTOs.Responses;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SaveUpBackend.Interfaces
 {
@@ -7,7 +10,7 @@ namespace SaveUpBackend.Interfaces
     {
         Task<IEnumerable<SavedMoneyDTO>> GetAll();
         Task<SavedMoneyDTO> GetById(string id);
-
         Task<SavedMoneyDTO> Create(SavedMoneyCreateDTO savedMoneyCreateDTO);
+        Task<List<SavedMoneyDTO>> GetByDateAsync(DateTime date);
     }
 }

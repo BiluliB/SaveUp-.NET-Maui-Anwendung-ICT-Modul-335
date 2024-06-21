@@ -1,13 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SaveUp.Common;
 using SaveUpModels.DTOs.Responses;
 using SaveUpModels.DTOs.Requests;
 using SaveUp.Interfaces;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 using SaveUp.Models;
 
 namespace SaveUp.Services
@@ -16,7 +14,6 @@ namespace SaveUp.Services
     {
         public SavedMoneyServiceAPI(IConfiguration configuration) : base(configuration, "savedmoney")
         {
-
         }
 
         public async Task<HTTPResponse<List<SavedMoneyDTO>>> GetAllAsync()
@@ -29,6 +26,12 @@ namespace SaveUp.Services
         {
             var res = await _sendRequest(HttpMethod.Post, _url(), savedMoneyCreateDTO);
             return new HTTPResponse<SavedMoneyDTO>(res);
+        }
+
+        public async Task<HTTPResponse<List<SavedMoneyDTO>>> GetTodayAsync()
+        {
+            var res = await _sendRequest(HttpMethod.Get, _url("today"));
+            return new HTTPResponse<List<SavedMoneyDTO>>(res);
         }
     }
 }

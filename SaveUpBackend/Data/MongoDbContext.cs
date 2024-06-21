@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-
+using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using SaveUpBackend.Interfaces;
 using SaveUpModels.Models;
@@ -24,20 +24,10 @@ namespace SaveUpBackend.Data
 
             //SeedDatabase().Wait();
         }
-        /// <summary>
-        /// Collection wrappers for the different entities in the database.
-        /// </summary>
-        public CollectionWrapper<SavedMoney> SavedMoney => new(_mapper, _database, "SavedMoney");
 
+        public CollectionWrapper<SavedMoney> SavedMoney => new(_database, "SavedMoney");
 
-        /// <summary>
-        /// Gets the collection wrapper for the given type.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns>Get Collection Wrapper</returns>
-        /// <exception cref="InvalidOperationException"></exception>
-        public CollectionWrapper<T> Get<T>()
-            where T : BaseModel
+        public CollectionWrapper<T> Get<T>() where T : BaseModel
         {
             var propertyInfo = GetType()
                 .GetProperties()

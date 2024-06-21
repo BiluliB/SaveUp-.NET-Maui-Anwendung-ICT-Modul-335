@@ -1,41 +1,31 @@
-﻿using AutoMapper;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using SaveUpBackend.Common;
 using SaveUpModels.Models;
+using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace SaveUpBackend.Data
 {
-    public class CollectionWrapper<T>
-        where T : BaseModel
+    public class CollectionWrapper<T> where T : BaseModel
     {
-        private readonly IMapper _mapper;
         private readonly IMongoCollection<T> _collection;
-        private readonly IMongoDatabase _database;
 
-        public CollectionWrapper(IMapper mapper, IMongoDatabase database, string collectionName)
+        public CollectionWrapper(IMongoDatabase database, string collectionName)
         {
-            _mapper = mapper;
-            _database = database;
-            var collectionList = _database.ListCollectionNames().ToList();
+            var collectionList = database.ListCollectionNames().ToList();
 
             if (!collectionList.Contains(collectionName))
             {
-                _database.CreateCollection(collectionName);
+                database.CreateCollection(collectionName);
             }
-            _collection = _database.GetCollection<T>(collectionName);
+            _collection = database.GetCollection<T>(collectionName);
         }
 
-        /// <summary>
-        /// Finds all entities in the collection and returns them as a list.
-        /// </summary>
-        /// <param name="filter"></param>
-        /// <returns>list</returns>
         public async Task<List<T>> FindWithProxies(FilterDefinition<T> filter)
         {
-            var aggregation = _collection.Aggregate<T>()
-                .Match(filter);
+            var aggregation = _collection.Aggregate().Match(filter);
 
             var properties = typeof(T).GetProperties();
             foreach (var property in properties)
@@ -70,78 +60,24 @@ namespace SaveUpBackend.Data
                     aggregation = aggregation.AppendStage<T>(lookup).AppendStage<T>(unwind);
                 }
             }
-            var list = await aggregation.ToListAsync();
-            return list;
+
+            return await aggregation.ToListAsync();
         }
 
-        /// <summary>
-        /// Adds a proxy to the collection.
-        /// </summary>
-        /// <returns>await _collection.InsertOneAsync(entity)</returns>
-        public async Task<bool> Any()
-        {
-            return await _collection.CountDocumentsAsync(FilterDefinition<T>.Empty) > 0;
-        }
-
-        /// <summary>
-        /// Inserts a single entity into the collection.
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        public async Task InsertOneAsync(T entity)
-        {
-            await _collection.InsertOneAsync(entity);
-        }
-
-        /// <summary>
-        /// Finds a user by username.
-        /// </summary>
-        /// <param name="username"></param>
-        /// <returns>result.FirstOrDefault()</returns>
-        public async Task<T> FindByUsernameAsync(string username)
-        {
-            var result = await FindWithProxies(Builders<T>.Filter.Eq("name", username));
-            return result.FirstOrDefault();
-        }
-
-        /// <summary>
-        /// Finds a user by id.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>result.FirstOrDefault()</returns>
-        public async Task<T> FindByIdAsync(ObjectId id)
-        {
-            var result = await FindWithProxies(Builders<T>.Filter.Eq("_id", id));
-            return result.FirstOrDefault();
-        }
-
-        /// <summary>
-        /// Replaces an entity in the collection with the given entity.
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        public async Task ReplaceOneAsync(T entity)
-        {
-            await _collection.ReplaceOneAsync(x => x.Id == entity.Id, entity);
-        }
-
-        /// <summary>
-        /// Deletes an entity from the collection by id.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task DeleteOneAsync(ObjectId id)
-        {
-            await _collection.DeleteOneAsync(x => x.Id == id);
-        }
-
-        /// <summary>
-        /// Finds all entities in the collection and returns them as a list.
-        /// </summary>
-        /// <returns></returns>
         public async Task<List<T>> FindAll()
         {
             return await _collection.Find(FilterDefinition<T>.Empty).ToListAsync();
+        }
+
+        public async Task<T> FindByIdAsync(ObjectId id)
+        {
+            var filter = Builders<T>.Filter.Eq("_id", id);
+            return await _collection.Find(filter).FirstOrDefaultAsync();
+        }
+
+        public async Task InsertOneAsync(T entity)
+        {
+            await _collection.InsertOneAsync(entity);
         }
     }
 }
