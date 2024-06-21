@@ -51,15 +51,6 @@ namespace SaveUp.Common
             _endpoint = endpoint;
             _httpClient = HTTPClientFactory.Create();
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-            // Set the timeout value to a smaller duration, e.g., 5 seconds
-            _httpClient.Timeout = TimeSpan.FromSeconds(5);
-
-=======
->>>>>>> 7e7b26512df3c794c9e651cf2f0e699890ec4b86
->>>>>>> Stashed changes
             var baseUrl = _configuration["API:BaseURL"];
             if (!string.IsNullOrEmpty(baseUrl))
             {
@@ -97,15 +88,6 @@ namespace SaveUp.Common
         protected async Task<HttpResponseMessage?> _sendRequest(HttpMethod method, string url, object? data = null)
         {
             var request = new HttpRequestMessage(method, url);
-<<<<<<< Updated upstream
-            
-=======
-<<<<<<< HEAD
-
-=======
-            
->>>>>>> 7e7b26512df3c794c9e651cf2f0e699890ec4b86
->>>>>>> Stashed changes
             if (data != null)
             {
                 var json = JsonConvert.SerializeObject(data);
@@ -124,12 +106,4 @@ namespace SaveUp.Common
             }
         }
     }
-<<<<<<< Updated upstream
-    }
-=======
-<<<<<<< HEAD
 }
-=======
-    }
->>>>>>> 7e7b26512df3c794c9e651cf2f0e699890ec4b86
->>>>>>> Stashed changes
