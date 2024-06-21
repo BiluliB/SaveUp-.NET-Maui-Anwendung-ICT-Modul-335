@@ -38,29 +38,23 @@
         <!-- Buttons -->
         <Grid Grid.Row="2" ColumnDefinitions="*,*" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,20,0,10">
             <Grid Grid.Column="0" HorizontalOptions="FillAndExpand" Margin="5,0,5,0">
-                <BoxView x:Name="addButtonBoxView" BackgroundColor="Transparent">
-                    <BoxView.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnAddButtonTapped" />
-                    </BoxView.GestureRecognizers>
-                </BoxView>
-                <Button Text="Hinzufügen" Command="{Binding AddCommand}" 
+                <Button Text="Hinzufügen" 
+                        Clicked="OnAddButtonClicked"
                         BackgroundColor="Transparent" 
                         TextColor="Black"
                         HorizontalOptions="FillAndExpand" 
-                        VerticalOptions="End"/>
+                        VerticalOptions="End"
+                        IsEnabled="{Binding IsNotBusy}"/>
                 <BoxView HeightRequest="1" BackgroundColor="DarkViolet" HorizontalOptions="FillAndExpand" VerticalOptions="End"/>
             </Grid>
             <Grid Grid.Column="1" HorizontalOptions="FillAndExpand" Margin="5,0,5,0" >
-                <BoxView x:Name="cancelButtonBoxView" BackgroundColor="Transparent">
-                    <BoxView.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnCancelButtonTapped" />
-                    </BoxView.GestureRecognizers>
-                </BoxView>
-                <Button Text="Abbrechen" Command="{Binding CancelCommand}" 
+                <Button Text="Abbrechen" 
+                        Clicked="OnCancelButtonClicked"
                         BackgroundColor="Transparent" 
                         TextColor="Black"
                         HorizontalOptions="FillAndExpand" 
-                        VerticalOptions="End"/>
+                        VerticalOptions="End"
+                        IsEnabled="{Binding IsNotBusy}"/>
                 <BoxView HeightRequest="1" BackgroundColor="Red" HorizontalOptions="FillAndExpand" VerticalOptions="End"/>
             </Grid>
         </Grid>

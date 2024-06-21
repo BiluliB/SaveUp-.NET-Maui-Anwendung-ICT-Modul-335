@@ -13,32 +13,36 @@ namespace SaveUp.Views
             BindingContext = viewModel;
         }
 
-        private async void OnAddButtonTapped(object sender, EventArgs e)
+        private async void OnAddButtonClicked(object sender, EventArgs e)
         {
-            await AnimateButton(addButtonBoxView);
-            // Ihre Logik für den AddCommand hier
+            var button = (Button)sender;
+            await AnimateButtonBackground(button, Color.FromArgb("#EDE9FE"));
+
+            // Führe den AddCommand aus
             if (BindingContext is AddPageViewModel viewModel)
             {
-                viewModel.AddCommand.Execute(null);
+                await viewModel.ExecuteAddCommandAsync();
             }
         }
 
-        private async void OnCancelButtonTapped(object sender, EventArgs e)
+        private async void OnCancelButtonClicked(object sender, EventArgs e)
         {
-            await AnimateButton(cancelButtonBoxView);
-            // Ihre Logik für den CancelCommand hier
+            var button = (Button)sender;
+            await AnimateButtonBackground(button, Color.FromArgb("#FEE2E2"));
+
+            // Führe den CancelCommand aus
             if (BindingContext is AddPageViewModel viewModel)
             {
                 viewModel.CancelCommand.Execute(null);
             }
         }
 
-        private async Task AnimateButton(BoxView boxView)
+        private async Task AnimateButtonBackground(Button button, Color highlightColor)
         {
-            boxView.BackgroundColor = Colors.Violet;
-            await boxView.FadeTo(1, 50);
-            await boxView.FadeTo(0, 500);
-            boxView.BackgroundColor = Colors.Transparent;
+            var originalColor = button.BackgroundColor;
+            button.BackgroundColor = highlightColor;
+            await Task.Delay(100); // Zeit in Millisekunden
+            button.BackgroundColor = originalColor;
         }
     }
 }

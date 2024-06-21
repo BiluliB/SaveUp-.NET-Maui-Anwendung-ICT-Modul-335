@@ -51,6 +51,9 @@ namespace SaveUp.Common
             _endpoint = endpoint;
             _httpClient = HTTPClientFactory.Create();
 
+            // Set the timeout value to a smaller duration, e.g., 5 seconds
+            _httpClient.Timeout = TimeSpan.FromSeconds(5);
+
             var baseUrl = _configuration["API:BaseURL"];
             if (!string.IsNullOrEmpty(baseUrl))
             {
@@ -88,7 +91,7 @@ namespace SaveUp.Common
         protected async Task<HttpResponseMessage?> _sendRequest(HttpMethod method, string url, object? data = null)
         {
             var request = new HttpRequestMessage(method, url);
-            
+
             if (data != null)
             {
                 var json = JsonConvert.SerializeObject(data);
@@ -107,4 +110,4 @@ namespace SaveUp.Common
             }
         }
     }
-    }
+}
