@@ -13,7 +13,15 @@
                HorizontalOptions="Center" 
                Grid.Row="0" />
 
-        <!-- Fehlermeldung -->
+        <!-- Keine Einträge für heute -->
+        <Label Text="Keine Einträge für heute."
+               TextColor="Black"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               IsVisible="{Binding IsNoEntriesMessageVisible}"
+               Grid.Row="1" />
+
+        <!-- Allgemeine Fehlermeldung -->
         <Label Text="{Binding ErrorMessage}"
                TextColor="Red"
                HorizontalOptions="Center"
@@ -21,20 +29,20 @@
                Grid.Row="1" />
 
         <!-- Einsparungen heute -->
-        <StackLayout Grid.Row="2" VerticalOptions="FillAndExpand" Spacing="0" Margin="15,10,15,0">
+        <StackLayout Grid.Row="2" VerticalOptions="FillAndExpand" Spacing="0" Margin="5,10,5,0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Label Text="Einsparungen heute:"
-                       Margin="0,0,0,10"
+                       Margin="0,0,0,15"
                        FontSize="Medium"
                        VerticalOptions="Center"
                        Grid.Column="0"/>
                 <Label Text="{Binding HeuteGespartBetragText}"
                        FontSize="Medium"
-                       FontAttributes="Bold"
+                       FontAttributes="Bold"                      
                        Margin="10,0,0,0"
                        VerticalOptions="Center"
                        Grid.Column="1"/>
@@ -68,12 +76,21 @@
                                     </SwipeItems>
                                 </SwipeView.RightItems>
                                 <Grid>
-                                    <Frame Margin="0,0,0,10" BorderColor="LightGray" CornerRadius="5" BackgroundColor="#F1F5F9" >
-                                        <HorizontalStackLayout>
-                                            <Label Text="{Binding Beschreibung}" FontSize="Medium"/>
-                                            <Label Text=":" FontSize="Medium" />
-                                            <Label Text="{Binding Price}" FontSize="Medium" />
-                                        </HorizontalStackLayout>
+                                    <Frame Margin="0,0,0,10" Padding="10" BorderColor="LightGray" CornerRadius="5" BackgroundColor="#F1F5F9">
+                                        <StackLayout>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Label Text="{Binding Beschreibung}" FontSize="Medium" HorizontalOptions="StartAndExpand" Grid.Column="0"/>
+                                                <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End">
+                                                    <Label Text="{Binding Price}" FontSize="Medium" />
+                                                    <Label Text=" CHF" FontSize="Medium" />
+                                                </HorizontalStackLayout>
+                                            </Grid>
+                                            <Label Text="{Binding Date, StringFormat='{}{0:HH:mm}'}" FontSize="Small" TextColor="Gray" HorizontalOptions="Start" />
+                                        </StackLayout>
                                     </Frame>
                                 </Grid>
                             </SwipeView>

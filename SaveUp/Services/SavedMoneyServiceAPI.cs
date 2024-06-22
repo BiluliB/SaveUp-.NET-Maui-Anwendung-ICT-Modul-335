@@ -33,5 +33,6 @@ namespace SaveUp.Services
             var res = await _sendRequest(HttpMethod.Get, _url("today"));
             return new HTTPResponse<List<SavedMoneyDTO>>(res);
         }
+
     }
 }

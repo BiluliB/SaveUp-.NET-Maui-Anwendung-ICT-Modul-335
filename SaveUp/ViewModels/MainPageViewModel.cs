@@ -44,11 +44,13 @@ namespace SaveUp.ViewModels
                     _errorMessage = value;
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(IsErrorVisible));
+                    OnPropertyChanged(nameof(IsNoEntriesMessageVisible));
                 }
             }
         }
 
-        public bool IsErrorVisible => !string.IsNullOrEmpty(ErrorMessage);
+        public bool IsErrorVisible => !string.IsNullOrEmpty(ErrorMessage) && ErrorMessage != "Keine Einträge für heute.";
+        public bool IsNoEntriesMessageVisible => ErrorMessage == "Keine Einträge für heute.";
 
         public ObservableCollection<Einsparung> EinsparungenHeute { get; set; } = new ObservableCollection<Einsparung>();
 
@@ -87,9 +89,14 @@ namespace SaveUp.ViewModels
 
                     foreach (var item in parsed)
                     {
-                        EinsparungenHeute.Add(new Einsparung { Beschreibung = item.Description, Price = $"{item.Price:F2}" });
+                        EinsparungenHeute.Add(new Einsparung { Beschreibung = item.Description, Price = $"{item.Price:F2}", Date = item.Date });
                         _gesamtGespart += item.Price;
                         _heuteGespart += item.Price;
+                    }
+
+                    if (parsed.Count == 0)
+                    {
+                        ErrorMessage = "Keine Einträge für heute.";
                     }
                 }
                 else
@@ -104,7 +111,10 @@ namespace SaveUp.ViewModels
 
             OnPropertyChanged(nameof(GesamtGespartText));
             OnPropertyChanged(nameof(HeuteGespartBetragText));
+            OnPropertyChanged(nameof(IsErrorVisible));
+            OnPropertyChanged(nameof(IsNoEntriesMessageVisible));
         }
+
 
         private async Task OnRefresh()
         {
@@ -127,5 +137,6 @@ namespace SaveUp.ViewModels
     {
         public string Beschreibung { get; set; }
         public string Price { get; set; }
+        public DateTime Date { get; set; }
     }
 }

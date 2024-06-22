@@ -21,8 +21,6 @@ namespace SaveUpBackend.Data
 
             var client = new MongoClient(url);
             _database = client.GetDatabase(database);
-
-            //SeedDatabase().Wait();
         }
 
         public CollectionWrapper<SavedMoney> SavedMoney => new(_database, "SavedMoney");

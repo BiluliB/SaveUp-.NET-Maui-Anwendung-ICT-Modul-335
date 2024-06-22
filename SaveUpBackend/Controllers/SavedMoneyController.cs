@@ -88,27 +88,30 @@ namespace SaveUpBackend.Controllers
                 }
             }
 
-            [HttpGet("today")]
-            [ProducesResponseType(typeof(List<SavedMoneyDTO>), StatusCodes.Status200OK)]
-            [ProducesResponseType(StatusCodes.Status404NotFound)]
-            public async Task<ActionResult<List<SavedMoneyDTO>>> GetToday()
+        [HttpGet("today")]
+        [ProducesResponseType(typeof(List<SavedMoneyDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<List<SavedMoneyDTO>>> GetToday()
+        {
+            try
             {
-                try
-                {
-                    var today = DateTime.UtcNow.Date;
-                    var savedMoneyDTOs = await _savedMoneyService.GetByDateAsync(today);
+                var today = DateTime.UtcNow.Date;
+                var savedMoneyDTOs = await _savedMoneyService.GetByDateAsync(today);
 
-                    if (savedMoneyDTOs == null || savedMoneyDTOs.Count == 0)
-                    {
-                        return NotFound("No entries found for today.");
-                    }
-
-                    return Ok(savedMoneyDTOs);
-                }
-                catch (Exception ex)
+                if (savedMoneyDTOs == null || savedMoneyDTOs.Count == 0)
                 {
-                    return BadRequest(ex.Message);
+                    return Ok(new List<SavedMoneyDTO>()); // Leere Liste zurückgeben
                 }
+
+                return Ok(savedMoneyDTOs);
             }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
     }
-}
+}      

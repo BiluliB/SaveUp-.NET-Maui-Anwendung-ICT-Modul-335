@@ -16,6 +16,8 @@ namespace SaveUpBackend.Services
         private readonly IMongoDbContext _context;
         private readonly IMapper _mapper;
 
+
+
         public SavedMoneyService(IMongoDbContext context, IMapper mapper)
         {
             _context = context;
@@ -37,17 +39,25 @@ namespace SaveUpBackend.Services
         public async Task<SavedMoneyDTO> Create(SavedMoneyCreateDTO savedMoneyCreateDTO)
         {
             var savedMoney = _mapper.Map<SavedMoney>(savedMoneyCreateDTO);
+            savedMoney.Date = DateTime.UtcNow;  // Datum in UTC speichern
             await _context.SavedMoney.InsertOneAsync(savedMoney);
             return _mapper.Map<SavedMoneyDTO>(savedMoney);
         }
 
+
+
         public async Task<List<SavedMoneyDTO>> GetByDateAsync(DateTime date)
         {
-            var filter = Builders<SavedMoney>.Filter.Gte(sm => sm.Date, date.Date) &
-                         Builders<SavedMoney>.Filter.Lt(sm => sm.Date, date.Date.AddDays(1));
+            // Start und Ende des Tages in UTC berechnen
+            var startOfDayUtc = DateTime.SpecifyKind(date.Date, DateTimeKind.Utc);
+            var endOfDayUtc = startOfDayUtc.AddDays(1);
+
+            var filter = Builders<SavedMoney>.Filter.Gte(sm => sm.Date, startOfDayUtc) &
+                         Builders<SavedMoney>.Filter.Lt(sm => sm.Date, endOfDayUtc);
 
             var savedMoney = await _context.SavedMoney.FindWithProxies(filter);
             return _mapper.Map<List<SavedMoneyDTO>>(savedMoney);
         }
+
     }
 }

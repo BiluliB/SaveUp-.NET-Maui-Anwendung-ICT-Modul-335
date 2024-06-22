@@ -1,14 +1,23 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.Extensions.Configuration;
+using SaveUp.Interfaces;
+using SaveUp.Models;
+using SaveUp.Services;
 
 namespace SaveUp.ViewModels
 {
     public class ListPageViewModel : INotifyPropertyChanged
     {
         private static ListPageViewModel _instance;
-        public static ListPageViewModel Instance => _instance ??= new ListPageViewModel();
+        public static ListPageViewModel Instance => _instance ??= new ListPageViewModel(new SavedMoneyServiceAPI(new ConfigurationBuilder().Build()));
+
+        private readonly ISavedMoneyServiceAPI _savedMoneyService;
 
         private decimal _gesamtGespart;
         public string GesamtGespartText => $"Gesamt gespart: {_gesamtGespart:0.00} CHF";
@@ -19,83 +28,80 @@ namespace SaveUp.ViewModels
         public ICommand ListCommand { get; }
         public ICommand AddCommand { get; }
         public ICommand MoreCommand { get; }
+        public ICommand DeleteCommand { get; }
 
-        public ListPageViewModel()
+        public ListPageViewModel(ISavedMoneyServiceAPI savedMoneyService)
         {
-            HomeCommand = new Command(OnHome);
-            ListCommand = new Command(OnList);
-            AddCommand = new Command(OnAdd);
-            MoreCommand = new Command(OnMore);
+            _savedMoneyService = savedMoneyService;
 
-            // Simulate data loading
+            HomeCommand = new Command(async () => await OnHome());
+            ListCommand = new Command(async () => await OnList());
+            AddCommand = new Command(async () => await OnAdd());
+            MoreCommand = new Command(async () => await OnMore());
+            DeleteCommand = new Command<Artikel>(OnDelete);
+
+            // Load data initially
             LoadArtikel();
         }
 
-        private void LoadArtikel()
+        private async void LoadArtikel()
         {
-            // Hier sollten die Daten aus der Datenbank geladen werden
-            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Kaffee", Datum = new DateTime(2024, 1, 1), Preis = 4.50m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Snack", Datum = new DateTime(2024, 3, 1), Preis = 2.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "Schoggi", Datum = new DateTime(2024, 5, 1), Preis = 3.00m });
-            ArtikelListe.Add(new Artikel { Beschreibung = "RedBull", Datum = new DateTime(2024, 5, 1), Preis = 2.50m });
+            var result = await _savedMoneyService.GetAllAsync();
+            if (result.IsSuccess)
+            {
+                var items = await result.ParseSuccess();
+                ArtikelListe.Clear();
+                foreach (var item in items)
+                {
+                    ArtikelListe.Add(new Artikel { Beschreibung = item.Description, Datum = item.Date, Preis = item.Price });
+                }
+                UpdateGesamtGespart();
+                SortArtikel();
+            }
+            else
+            {
+                // Handle error
+            }
+        }
 
-            _gesamtGespart = 12.00m;
+        private void SortArtikel()
+        {
+            var sorted = ArtikelListe.OrderByDescending(a => a.Datum).ToList();
+            ArtikelListe.Clear();
+            foreach (var artikel in sorted)
+            {
+                ArtikelListe.Add(artikel);
+            }
+        }
 
+        private void UpdateGesamtGespart()
+        {
+            _gesamtGespart = ArtikelListe.Sum(a => a.Preis);
             OnPropertyChanged(nameof(GesamtGespartText));
         }
 
-        private async void OnHome()
+        private void OnDelete(Artikel artikel)
+        {
+            ArtikelListe.Remove(artikel);
+            UpdateGesamtGespart();
+        }
+
+        private async Task OnHome()
         {
             await Shell.Current.GoToAsync("//home");
         }
 
-        private async void OnList()
+        private async Task OnList()
         {
             await Shell.Current.GoToAsync("//list");
         }
 
-        private async void OnAdd()
+        private async Task OnAdd()
         {
             await Shell.Current.GoToAsync("//add");
         }
 
-        private async void OnMore()
+        private async Task OnMore()
         {
             await Shell.Current.GoToAsync("//more");
         }

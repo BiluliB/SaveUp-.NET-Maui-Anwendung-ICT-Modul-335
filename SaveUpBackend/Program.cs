@@ -9,6 +9,9 @@ namespace SaveUpBackend
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("Current UTC DateTime: " + DateTime.UtcNow);
+
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add Serilogger

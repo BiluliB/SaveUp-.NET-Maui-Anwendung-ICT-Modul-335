@@ -15,7 +15,7 @@
                Grid.Row="0" />
 
         <!-- Gesamt gespart -->
-        <Frame BorderColor="LimeGreen" Grid.Row="1" Margin="15,0,15,0">
+        <Frame BorderColor="LimeGreen" Grid.Row="1" Margin="5,0,5,0">
             <Label Text="{Binding GesamtGespartText}"
             FontSize="Large"
             HorizontalOptions="Center"/>
@@ -23,7 +23,7 @@
 
         <!-- Artikelliste -->
 
-        <Grid Grid.Row="2" VerticalOptions="FillAndExpand" Margin="15,10,15,0">
+        <Grid Grid.Row="2" VerticalOptions="FillAndExpand" Margin="5,10,5,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -67,7 +67,7 @@
                                         </SwipeItemView>
                                     </SwipeItems>
                                 </SwipeView.RightItems>
-                                <Grid Padding="5">
+                                <Grid Padding="10">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
