@@ -95,12 +95,11 @@ namespace SaveUpBackend.Controllers
         {
             try
             {
-                var today = DateTime.UtcNow.Date;
-                var savedMoneyDTOs = await _savedMoneyService.GetByDateAsync(today);
+                var savedMoneyDTOs = await _savedMoneyService.GetEntriesForToday();
 
-                if (savedMoneyDTOs == null || savedMoneyDTOs.Count == 0)
+                if (savedMoneyDTOs == null)
                 {
-                    return Ok(new List<SavedMoneyDTO>()); // Leere Liste zurückgeben
+                    return NotFound();
                 }
 
                 return Ok(savedMoneyDTOs);
@@ -110,8 +109,5 @@ namespace SaveUpBackend.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-
-
     }
 }      

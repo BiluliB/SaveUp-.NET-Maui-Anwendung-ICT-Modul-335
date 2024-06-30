@@ -35,9 +35,9 @@ namespace SaveUp.Common
         /// 
         string _defaultBaseUrl =
 #if ANDROID
-        "https://10.0.2.2:7040/api/";
+        "http://10.0.2.2:5035/api/";
 #else
-        "https://localhost:7040/api/";
+        "http://localhost:5035/api/";
 #endif
 
         /// <summary>

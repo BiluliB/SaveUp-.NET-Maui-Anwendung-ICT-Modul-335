@@ -7,10 +7,21 @@ namespace SaveUp.Views
 {
     public partial class AddPage : ContentPage
     {
+        private Color originalAddButtonColor;
+        private Color originalCancelButtonColor;
+
         public AddPage(AddPageViewModel viewModel)
         {
             InitializeComponent();
             BindingContext = viewModel;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            // Speichern der ursprünglichen Farben beim ersten Anzeigen der Seite
+            originalAddButtonColor = AddButton.BackgroundColor;
+            originalCancelButtonColor = CancelButton.BackgroundColor;
         }
 
         private async void OnAddButtonClicked(object sender, EventArgs e)
@@ -23,6 +34,9 @@ namespace SaveUp.Views
             {
                 await viewModel.ExecuteAddCommandAsync();
             }
+
+            // Setze die ursprüngliche Farbe zurück
+            button.BackgroundColor = originalAddButtonColor;
         }
 
         private async void OnCancelButtonClicked(object sender, EventArgs e)
@@ -35,6 +49,9 @@ namespace SaveUp.Views
             {
                 viewModel.CancelCommand.Execute(null);
             }
+
+            // Setze die ursprüngliche Farbe zurück
+            button.BackgroundColor = originalCancelButtonColor;
         }
 
         private async Task AnimateButtonBackground(Button button, Color highlightColor)

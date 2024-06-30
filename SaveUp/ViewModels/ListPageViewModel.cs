@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
 using SaveUp.Interfaces;
-using SaveUp.Models;
 using SaveUp.Services;
+using SaveUpModels.Models;
 
 namespace SaveUp.ViewModels
 {
@@ -22,51 +22,103 @@ namespace SaveUp.ViewModels
         private decimal _gesamtGespart;
         public string GesamtGespartText => $"Gesamt gespart: {_gesamtGespart:0.00} CHF";
 
-        public ObservableCollection<Artikel> ArtikelListe { get; set; } = new ObservableCollection<Artikel>();
+        private bool _isRefreshing;
+        public bool IsRefreshing
+        {
+            get => _isRefreshing;
+            set
+            {
+                if (_isRefreshing != value)
+                {
+                    _isRefreshing = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
-        public ICommand HomeCommand { get; }
-        public ICommand ListCommand { get; }
-        public ICommand AddCommand { get; }
-        public ICommand MoreCommand { get; }
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                if (_errorMessage != value)
+                {
+                    _errorMessage = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(IsErrorVisible));
+                    OnPropertyChanged(nameof(IsNoEntriesMessageVisible));
+                }
+            }
+        }
+
+        public bool IsErrorVisible => !string.IsNullOrEmpty(ErrorMessage) && ErrorMessage != "Keine Einträge vorhanden.";
+        public bool IsNoEntriesMessageVisible => ErrorMessage == "Keine Einträge vorhanden.";
+
+        public ObservableCollection<SavedMoney> ArtikelListe { get; set; } = new ObservableCollection<SavedMoney>();
+
+        public ICommand RefreshCommand { get; }
         public ICommand DeleteCommand { get; }
 
         public ListPageViewModel(ISavedMoneyServiceAPI savedMoneyService)
         {
             _savedMoneyService = savedMoneyService;
-
-            HomeCommand = new Command(async () => await OnHome());
-            ListCommand = new Command(async () => await OnList());
-            AddCommand = new Command(async () => await OnAdd());
-            MoreCommand = new Command(async () => await OnMore());
-            DeleteCommand = new Command<Artikel>(OnDelete);
-
-            // Load data initially
-            LoadArtikel();
+            RefreshCommand = new Command(async () => await OnRefresh());
+            DeleteCommand = new Command<SavedMoney>(OnDelete);
         }
 
-        private async void LoadArtikel()
+        public async Task LoadArtikel()
         {
-            var result = await _savedMoneyService.GetAllAsync();
-            if (result.IsSuccess)
+            try
             {
-                var items = await result.ParseSuccess();
                 ArtikelListe.Clear();
-                foreach (var item in items)
+                _gesamtGespart = 0;
+                ErrorMessage = string.Empty;
+
+                var result = await _savedMoneyService.GetAllAsync();
+                if (result.IsSuccess)
                 {
-                    ArtikelListe.Add(new Artikel { Beschreibung = item.Description, Datum = item.Date, Preis = item.Price });
+                    var items = await result.ParseSuccess();
+                    foreach (var item in items)
+                    {
+                        ArtikelListe.Add(new SavedMoney { Description = item.Description, Date = item.Date, Price = item.Price });
+                    }
+
+                    if (ArtikelListe.Count == 0)
+                    {
+                        ErrorMessage = "Keine Einträge vorhanden.";
+                    }
+
+                    UpdateGesamtGespart();
+                    SortArtikel();
                 }
-                UpdateGesamtGespart();
-                SortArtikel();
+                else
+                {
+                    ErrorMessage = "Fehler beim Laden der Daten.";
+                }
             }
-            else
+            catch (Exception)
             {
-                // Handle error
+                ErrorMessage = "Fehler beim Laden der Daten.";
             }
+
+            OnPropertyChanged(nameof(GesamtGespartText));
+            OnPropertyChanged(nameof(IsErrorVisible));
+            OnPropertyChanged(nameof(IsNoEntriesMessageVisible));
+        }
+
+        private async Task OnRefresh()
+        {
+            if (IsRefreshing) return;
+
+            IsRefreshing = true;
+            await LoadArtikel();
+            IsRefreshing = false;
         }
 
         private void SortArtikel()
         {
-            var sorted = ArtikelListe.OrderByDescending(a => a.Datum).ToList();
+            var sorted = ArtikelListe.OrderByDescending(a => a.Date).ToList();
             ArtikelListe.Clear();
             foreach (var artikel in sorted)
             {
@@ -76,34 +128,14 @@ namespace SaveUp.ViewModels
 
         private void UpdateGesamtGespart()
         {
-            _gesamtGespart = ArtikelListe.Sum(a => a.Preis);
+            _gesamtGespart = ArtikelListe.Sum(a => a.Price);
             OnPropertyChanged(nameof(GesamtGespartText));
         }
 
-        private void OnDelete(Artikel artikel)
+        private void OnDelete(SavedMoney artikel)
         {
             ArtikelListe.Remove(artikel);
             UpdateGesamtGespart();
-        }
-
-        private async Task OnHome()
-        {
-            await Shell.Current.GoToAsync("//home");
-        }
-
-        private async Task OnList()
-        {
-            await Shell.Current.GoToAsync("//list");
-        }
-
-        private async Task OnAdd()
-        {
-            await Shell.Current.GoToAsync("//add");
-        }
-
-        private async Task OnMore()
-        {
-            await Shell.Current.GoToAsync("//more");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -112,12 +144,5 @@ namespace SaveUp.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-    }
-
-    public class Artikel
-    {
-        public string Beschreibung { get; set; }
-        public DateTime Datum { get; set; }
-        public decimal Preis { get; set; }
     }
 }

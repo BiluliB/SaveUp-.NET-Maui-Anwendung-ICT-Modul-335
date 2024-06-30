@@ -1,8 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
-using System.Threading.Tasks;
 using SaveUp.ViewModels;
-using SaveUp.Services;
-using Microsoft.Extensions.Configuration;
 
 namespace SaveUp.Views
 {
@@ -19,12 +16,7 @@ namespace SaveUp.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _ = LoadDataAsync();
-        }
-
-        private async Task LoadDataAsync()
-        {
-            await _viewModel.LoadEinsparungen();
+            _viewModel.LoadEinsparungen().ConfigureAwait(false);
         }
     }
 }

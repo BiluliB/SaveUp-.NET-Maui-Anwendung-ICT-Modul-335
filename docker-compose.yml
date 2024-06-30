@@ -1,0 +1,25 @@
+services:
+  mongodb:
+      image: mongo
+      ports:
+        - "17017:27017"
+      volumes:
+        - mongo-data:/data/db    
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: superadmin
+        MONGO_INITDB_ROOT_PASSWORD: superadmin
+    
+  saveup:
+    build:  
+      context: .
+      dockerfile: SaveUpBackend/Dockerfile
+    ports:
+      - "8000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Databases__MongoDB__URL=mongodb://superadmin:superadmin@mongodb:27017/SaveMoney
+    depends_on:
+      - mongodb
+
+volumes:
+  mongo-data: {}

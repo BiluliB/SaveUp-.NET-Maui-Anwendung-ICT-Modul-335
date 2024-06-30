@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -96,11 +97,26 @@ namespace SaveUp.ViewModels
 
             try
             {
+                // Validierung der Eingabefelder
+                if (string.IsNullOrWhiteSpace(Kurzbeschreibung))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Fehler", "Bitte eine Kurzbeschreibung eingeben", "OK");
+                    IsBusy = false;
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(Preis) || !decimal.TryParse(Preis, out decimal preisValue))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Fehler", "Bitte einen gültigen Preis eingeben", "OK");
+                    IsBusy = false;
+                    return;
+                }
+
                 var savedMoneyCreateDTO = new SavedMoneyCreateDTO
                 {
                     Description = Kurzbeschreibung,
-                    Price = decimal.Parse(Preis),
-                    Date = SelectedDate
+                    Price = preisValue,
+                    Date = SelectedDate // Verwenden des ausgewählten Datums
                 };
 
                 var response = await _savedMoneyService.CreateAsync(savedMoneyCreateDTO);
@@ -134,8 +150,13 @@ namespace SaveUp.ViewModels
 
         private void OnCancel()
         {
-            // Navigiere zurück zur vorherigen Seite
-            Application.Current.MainPage.Navigation.PopAsync();
+            // Eingabefelder zurücksetzen
+            Kurzbeschreibung = string.Empty;
+            SelectedDate = DateTime.Now;
+            Preis = string.Empty;
+
+            // Optional: Navigiere zurück zur vorherigen Seite
+            // Application.Current.MainPage.Navigation.PopAsync();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

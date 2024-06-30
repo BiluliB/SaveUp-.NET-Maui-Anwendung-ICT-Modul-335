@@ -29,7 +29,6 @@ namespace SaveUp
 
             builder.Services.AddSingleton<AddPageViewModel>();
             builder.Services.AddSingleton<MainPageViewModel>();
-            builder.Services.AddSingleton<MorePageViewModel>();
             builder.Services.AddSingleton<ListPageViewModel>();
 
             builder.Services.AddSingleton<AddPage>();

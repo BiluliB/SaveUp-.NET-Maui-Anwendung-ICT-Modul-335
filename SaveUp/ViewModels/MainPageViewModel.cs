@@ -5,9 +5,8 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using SaveUp.Interfaces;
-using SaveUp.Models;
 using SaveUp.Services;
-using SaveUpModels.DTOs.Responses;
+using SaveUpModels.Models;
 
 namespace SaveUp.ViewModels
 {
@@ -52,7 +51,7 @@ namespace SaveUp.ViewModels
         public bool IsErrorVisible => !string.IsNullOrEmpty(ErrorMessage) && ErrorMessage != "Keine Einträge für heute.";
         public bool IsNoEntriesMessageVisible => ErrorMessage == "Keine Einträge für heute.";
 
-        public ObservableCollection<Einsparung> EinsparungenHeute { get; set; } = new ObservableCollection<Einsparung>();
+        public ObservableCollection<SavedMoney> EinsparungenHeute { get; set; } = new ObservableCollection<SavedMoney>();
 
         private readonly ISavedMoneyServiceAPI _savedMoneyService;
 
@@ -61,16 +60,7 @@ namespace SaveUp.ViewModels
         public MainPageViewModel(ISavedMoneyServiceAPI savedMoneyService)
         {
             _savedMoneyService = savedMoneyService;
-
             RefreshCommand = new Command(async () => await OnRefresh());
-
-            // Load data initially
-            LoadInitialData();
-        }
-
-        private async void LoadInitialData()
-        {
-            await LoadEinsparungen();
         }
 
         public async Task LoadEinsparungen()
@@ -89,7 +79,7 @@ namespace SaveUp.ViewModels
 
                     foreach (var item in parsed)
                     {
-                        EinsparungenHeute.Add(new Einsparung { Beschreibung = item.Description, Price = $"{item.Price:F2}", Date = item.Date });
+                        EinsparungenHeute.Add(new SavedMoney { Description = item.Description, Price = item.Price, Date = item.Date.ToLocalTime() }); // Konvertieren in lokale Zeit
                         _gesamtGespart += item.Price;
                         _heuteGespart += item.Price;
                     }
@@ -115,13 +105,10 @@ namespace SaveUp.ViewModels
             OnPropertyChanged(nameof(IsNoEntriesMessageVisible));
         }
 
-
         private async Task OnRefresh()
         {
             IsRefreshing = true;
-
             await LoadEinsparungen();
-
             IsRefreshing = false;
         }
 
@@ -131,12 +118,5 @@ namespace SaveUp.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-    }
-
-    public class Einsparung
-    {
-        public string Beschreibung { get; set; }
-        public string Price { get; set; }
-        public DateTime Date { get; set; }
     }
 }

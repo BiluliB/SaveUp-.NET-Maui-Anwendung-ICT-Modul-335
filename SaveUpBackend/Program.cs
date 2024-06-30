@@ -9,8 +9,8 @@ namespace SaveUpBackend
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Current UTC DateTime: " + DateTime.UtcNow);
-
+            Console.WriteLine("Current UTC DateTime: " + DateTime.Now);
+            
 
             var builder = WebApplication.CreateBuilder(args);
 
@@ -45,7 +45,7 @@ namespace SaveUpBackend
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseAuthorization();
 

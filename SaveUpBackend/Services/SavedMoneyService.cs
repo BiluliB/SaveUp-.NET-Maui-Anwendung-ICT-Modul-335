@@ -39,7 +39,11 @@ namespace SaveUpBackend.Services
         public async Task<SavedMoneyDTO> Create(SavedMoneyCreateDTO savedMoneyCreateDTO)
         {
             var savedMoney = _mapper.Map<SavedMoney>(savedMoneyCreateDTO);
-            savedMoney.Date = DateTime.UtcNow;  // Datum in UTC speichern
+
+            Console.WriteLine(savedMoneyCreateDTO.Date);
+
+            // Das Datum aus dem DTO verwenden
+            savedMoney.Date = savedMoneyCreateDTO.Date;
             await _context.SavedMoney.InsertOneAsync(savedMoney);
             return _mapper.Map<SavedMoneyDTO>(savedMoney);
         }
@@ -49,7 +53,7 @@ namespace SaveUpBackend.Services
         public async Task<List<SavedMoneyDTO>> GetByDateAsync(DateTime date)
         {
             // Start und Ende des Tages in UTC berechnen
-            var startOfDayUtc = DateTime.SpecifyKind(date.Date, DateTimeKind.Utc);
+            var startOfDayUtc = DateTime.SpecifyKind(date.Date, DateTimeKind.Local);
             var endOfDayUtc = startOfDayUtc.AddDays(1);
 
             var filter = Builders<SavedMoney>.Filter.Gte(sm => sm.Date, startOfDayUtc) &
@@ -58,6 +62,15 @@ namespace SaveUpBackend.Services
             var savedMoney = await _context.SavedMoney.FindWithProxies(filter);
             return _mapper.Map<List<SavedMoneyDTO>>(savedMoney);
         }
+
+        public async Task<List<SavedMoneyDTO>> GetEntriesForToday()
+        {
+            var today = DateTime.Now.Date;
+            return await GetByDateAsync(today);
+        }
+
+
+
 
     }
 }

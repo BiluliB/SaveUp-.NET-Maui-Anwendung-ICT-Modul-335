@@ -12,7 +12,7 @@ namespace SaveUp.Services
 {
     public class SavedMoneyServiceAPI : BaseAPIService<SavedMoneyCreateDTO, IUpdate, SavedMoneyDTO>, ISavedMoneyServiceAPI
     {
-        public SavedMoneyServiceAPI(IConfiguration configuration) : base(configuration, "savedmoney")
+        public SavedMoneyServiceAPI(IConfiguration configuration) : base(configuration, "SavedMoney")
         {
         }
 

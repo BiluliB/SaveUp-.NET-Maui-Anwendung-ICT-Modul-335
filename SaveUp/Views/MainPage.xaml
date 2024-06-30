@@ -5,7 +5,7 @@
              x:Class="SaveUp.Views.MainPage"
              x:Name="MainPageView">
 
-    <Grid Padding="10" RowDefinitions="Auto, Auto, *" BackgroundColor="White">
+    <Grid Padding="10" RowDefinitions="Auto, *" BackgroundColor="White">
         <!-- Titel -->
         <Label Text="SaveUp" 
                Margin="0,0,0,10"
@@ -13,23 +13,8 @@
                HorizontalOptions="Center" 
                Grid.Row="0" />
 
-        <!-- Keine Einträge für heute -->
-        <Label Text="Keine Einträge für heute."
-               TextColor="Black"
-               FontAttributes="Bold"
-               HorizontalOptions="Center"
-               IsVisible="{Binding IsNoEntriesMessageVisible}"
-               Grid.Row="1" />
-
-        <!-- Allgemeine Fehlermeldung -->
-        <Label Text="{Binding ErrorMessage}"
-               TextColor="Red"
-               HorizontalOptions="Center"
-               IsVisible="{Binding IsErrorVisible}"
-               Grid.Row="1" />
-
         <!-- Einsparungen heute -->
-        <StackLayout Grid.Row="2" VerticalOptions="FillAndExpand" Spacing="0" Margin="5,10,5,0">
+        <StackLayout Grid.Row="1" VerticalOptions="FillAndExpand" Spacing="0" Margin="5,10,5,0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -55,26 +40,6 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <SwipeView>
-                                <SwipeView.RightItems>
-                                    <SwipeItems>
-                                        <SwipeItemView>
-                                            <Frame BorderColor="Gray" BackgroundColor="Red"
-                                                   CornerRadius="5"
-                                                   Padding="10"
-                                                   HasShadow="False">
-                                                <Grid>
-                                                    <Grid.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference MainPageView}}" CommandParameter="{Binding .}" />
-                                                    </Grid.GestureRecognizers>
-                                                    <Label Text="Löschen"
-                                                           TextColor="White"
-                                                           HorizontalOptions="Center"
-                                                           VerticalOptions="Center" />
-                                                </Grid>
-                                            </Frame>
-                                        </SwipeItemView>
-                                    </SwipeItems>
-                                </SwipeView.RightItems>
                                 <Grid>
                                     <Frame Margin="0,0,0,10" Padding="10" BorderColor="LightGray" CornerRadius="5" BackgroundColor="#F1F5F9">
                                         <StackLayout>
@@ -83,7 +48,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Label Text="{Binding Beschreibung}" FontSize="Medium" HorizontalOptions="StartAndExpand" Grid.Column="0"/>
+                                                <Label Text="{Binding Description}" FontSize="Medium" HorizontalOptions="StartAndExpand" Grid.Column="0"/>
                                                 <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End">
                                                     <Label Text="{Binding Price}" FontSize="Medium" />
                                                     <Label Text=" CHF" FontSize="Medium" />
@@ -96,8 +61,29 @@
                             </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout>
+                            <!-- Keine Einträge für heute -->
+                            <Label Text="Keine Einträge für heute."
+                            TextColor="Black"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center"
+                            IsVisible="{Binding IsNoEntriesMessageVisible}"
+                            Grid.Row="2" />
+
+                            <!-- Allgemeine Fehlermeldung -->
+                            <Label Text="{Binding ErrorMessage}"
+                            TextColor="Red"
+                            HorizontalOptions="Center"
+                            IsVisible="{Binding IsErrorVisible}"
+                            Grid.Row="2" />
+
+                        </VerticalStackLayout>
+
+                    </CollectionView.EmptyView>
                 </CollectionView>
             </RefreshView>
         </StackLayout>
+
     </Grid>
 </ContentPage>

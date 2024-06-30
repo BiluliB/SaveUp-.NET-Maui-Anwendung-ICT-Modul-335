@@ -11,6 +11,6 @@ namespace SaveUpBackend.Interfaces
         Task<IEnumerable<SavedMoneyDTO>> GetAll();
         Task<SavedMoneyDTO> GetById(string id);
         Task<SavedMoneyDTO> Create(SavedMoneyCreateDTO savedMoneyCreateDTO);
-        Task<List<SavedMoneyDTO>> GetByDateAsync(DateTime date);
+        Task<List<SavedMoneyDTO>> GetEntriesForToday();
     }
 }

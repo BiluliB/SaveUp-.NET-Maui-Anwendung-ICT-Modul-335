@@ -1,12 +1,54 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SaveUp.Views.MorePage"
-             Title="MorePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:Class="SaveUp.Views.MorePage">
+
+    <Grid Padding="10" RowDefinitions="Auto, Auto, *, Auto" BackgroundColor="White">
+        <!-- Titel -->
+        <Label Text="SaveUp App" 
+               FontSize="Large" 
+               HorizontalOptions="Center" 
+               Grid.Row="0" />
+
+        <!-- Version -->
+        <Label Text="v 0.1.0"
+               FontSize="Medium"
+               HorizontalOptions="Center"
+               Grid.Row="1" />
+
+        <!-- Entwickler und Name -->
+        <StackLayout Grid.Row="2" VerticalOptions="Center" Spacing="15" Margin="5,10,5,0">
+            <Label Text="Entwickler"
+                   FontSize="Title"
+                   HorizontalOptions="Center" />
+
+            <Label Text="BiluliB"
+                   FontSize="Large"
+                   Style="{StaticResource LinkLabelStyle}"
+                   HorizontalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenDeveloperLinkCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+
+        <!-- Danke Button -->
+        <StackLayout Grid.Row="3" VerticalOptions="Center" Spacing="15" Margin="5,10,5,0">
+            <Label Text="Für eine kleine Spende:"
+                   FontSize="Title"
+                   HorizontalOptions="Center" />
+
+            <Label Text="Klick Me!"
+                   FontSize="Large"
+                   Margin="0,0,0,50"
+                   Style="{StaticResource LinkLabelStyle}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenPayPalCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+    </Grid>
+
 </ContentPage>
