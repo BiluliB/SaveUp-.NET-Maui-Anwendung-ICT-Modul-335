@@ -54,6 +54,12 @@ Befolgen Sie diese Schritte, um die MongoDB-Datenbank korrekt einzurichten und z
 
 1. **Leere Datenbank:** Die MongoDB-Datenbank wird leer erstellt und beim Eintragen automatisch aufgebaut.
 
+### Syncfusion DatePicker Lizenzkey
+
+Erstelle eine `syncfusion_license.txt` Datei und speichere sie im `Resources` Ordner des SaveUp .NET Maui Projekt. Füge den Lizenzschlüssel in die Datei ein.
+
+Der Lizenzschlüssel kann bei https://www.syncfusion.com/ angefordert werden.
+
 ### Starten der Anwendung:
 
 1. Starten Sie MongoDB:
@@ -115,7 +121,7 @@ Dieses README bietet einen Überblick über die SaveUp Anwendung, einschließlic
 
 ### Mitwirkende
 
-Die Entwicklung der JetStreamApiMongoDb Backend-API wurde von:
+Die Entwicklung der SaveUp App wurde von:
 
 - **BiluliB** - Entwickler und Projektleiter
 
