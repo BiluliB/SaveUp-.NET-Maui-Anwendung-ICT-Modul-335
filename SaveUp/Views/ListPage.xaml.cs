@@ -1,8 +1,10 @@
-using Microsoft.Maui.Controls;
 using SaveUp.ViewModels;
 
 namespace SaveUp.Views
 {
+    /// <summary>
+    /// ListPage
+    /// </summary>
     public partial class ListPage : ContentPage
     {
         public ListPage()
@@ -11,6 +13,9 @@ namespace SaveUp.Views
             BindingContext = ListPageViewModel.Instance;
         }
 
+        /// <summary>
+        /// Load the Artikel when the page appears
+        /// </summary>
         protected override async void OnAppearing()
         {
             base.OnAppearing();

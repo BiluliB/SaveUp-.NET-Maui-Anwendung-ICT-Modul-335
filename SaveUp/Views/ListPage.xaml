@@ -7,21 +7,21 @@
              BindingContext="{x:Static local:ListPageViewModel.Instance}">
 
     <Grid Padding="10" RowDefinitions="Auto, Auto, Auto, Auto, *">
-        <!-- Titel -->
+        <!-- Title -->
         <Label Text="Alle Artikel" 
                Margin="0,0,0,10"
                FontSize="Large" 
                HorizontalOptions="Center" 
                Grid.Row="0" />
 
-        <!-- Gesamt gespart -->
+        <!-- Total saved -->
         <Frame BorderColor="LimeGreen" Grid.Row="1" Margin="5,0,5,0">
             <Label Text="{Binding GesamtGespartText}"
                    FontSize="Large"
                    HorizontalOptions="Center"/>
         </Frame>
 
-        <!-- Tabellenüberschrift -->
+        <!-- Table heading -->
         <Grid Grid.Row="2" BackgroundColor="LightGray" Padding="5" Margin="0,10,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -33,7 +33,7 @@
             <Label Text="Preis CHF" FontAttributes="Bold" Grid.Column="2" HorizontalOptions="End" />
         </Grid>
 
-        <!-- Fehlermeldung und leere Einträge -->
+        <!-- Error message and empty entries -->
         <VerticalStackLayout Grid.Row="3" Margin="5,10,5,0">
             <Label Text="Keine Einträge vorhanden."
                    TextColor="Black"
@@ -47,7 +47,7 @@
                    IsVisible="{Binding IsErrorVisible}" />
         </VerticalStackLayout>
 
-        <!-- Artikelliste -->
+        <!-- Article list -->
         <ListView Grid.Row="4" ItemsSource="{Binding ArtikelListe}" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>

@@ -5,9 +5,12 @@ using SaveUpModels.Models;
 
 namespace SaveUpBackend.Common
 {
+    /// <summary>
+    /// MappingProfile for the AutoMapper
+    /// </summary>
     public class MappingProfile : Profile
     {
-        public MappingProfile() 
+        public MappingProfile()
         {
             CreateMap<SavedMoney, SavedMoneyDTO>();
             CreateMap<SavedMoneyCreateDTO, SavedMoney>();

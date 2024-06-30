@@ -12,27 +12,27 @@
 
     <Grid Padding="10" RowDefinitions="Auto, *, Auto">
 
-        <!-- Titel -->
+        <!-- Title -->
         <Label Text="Artikel hinzufügen" 
                Margin="0,0,0,10"
                FontSize="Large" 
                HorizontalOptions="Center" 
                Grid.Row="0" />
 
-        <!-- Inhalt -->
+        <!-- Contents -->
         <StackLayout Grid.Row="1" Spacing="20">
-            <!-- Datumsauswahl -->
+            <!-- Datepicker -->
             <syncfusion:SfCalendar x:Name="calendar"
                                    HorizontalOptions="FillAndExpand"
                                    VerticalOptions="CenterAndExpand"
                                    SelectedDate="{Binding SelectedDate,Mode=TwoWay}" />
 
-            <!-- Kurzbeschreibung -->
+            <!-- Description -->
             <Entry Placeholder="Kurzbeschreibung:"
                    Text="{Binding Kurzbeschreibung}"
                    HorizontalOptions="FillAndExpand"/>
 
-            <!-- Preis -->
+            <!-- Price -->
             <Entry Placeholder="Preis in CHF:"
                    Keyboard="Numeric"
                    Text="{Binding Preis}"

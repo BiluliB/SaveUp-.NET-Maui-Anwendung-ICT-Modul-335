@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SaveUpModels.DTOs
+﻿namespace SaveUpModels.DTOs
 {
+    /// <summary>
+    /// DTO for the ErrorData
+    /// </summary>
     public class ErrorData
     {
         public string? Message { get; set; }

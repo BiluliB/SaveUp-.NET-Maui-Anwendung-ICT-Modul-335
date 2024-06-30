@@ -1,5 +1,8 @@
 ﻿namespace SaveUpModels.Models
 {
+    /// <summary>
+    /// Model for the SavedMoney
+    /// </summary>
     public class SavedMoney : BaseModel
     {
         public string? Description { get; set; }

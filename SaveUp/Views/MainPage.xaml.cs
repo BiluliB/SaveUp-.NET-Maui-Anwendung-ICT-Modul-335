@@ -1,8 +1,10 @@
-﻿using Microsoft.Maui.Controls;
-using SaveUp.ViewModels;
+﻿using SaveUp.ViewModels;
 
 namespace SaveUp.Views
 {
+    /// <summary>
+    /// MainPage
+    /// </summary>
     public partial class MainPage : ContentPage
     {
         private readonly MainPageViewModel _viewModel;
@@ -13,6 +15,9 @@ namespace SaveUp.Views
             BindingContext = _viewModel = viewModel;
         }
 
+        /// <summary>
+        /// Load the Einsparungen when the page appears
+        /// </summary>
         protected override void OnAppearing()
         {
             base.OnAppearing();

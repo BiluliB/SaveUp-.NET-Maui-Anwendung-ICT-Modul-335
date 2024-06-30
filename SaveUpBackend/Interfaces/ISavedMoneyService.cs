@@ -1,11 +1,11 @@
 ﻿using SaveUpModels.DTOs.Requests;
 using SaveUpModels.DTOs.Responses;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SaveUpBackend.Interfaces
 {
+    /// <summary>
+    /// Interface for the SavedMoneyService
+    /// </summary>
     public interface ISavedMoneyService
     {
         Task<IEnumerable<SavedMoneyDTO>> GetAll();

@@ -1,15 +1,15 @@
-﻿using System;
+﻿using SaveUp.Interfaces;
+using SaveUpModels.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using SaveUp.Interfaces;
-using SaveUp.Services;
-using SaveUpModels.Models;
 
 namespace SaveUp.ViewModels
 {
+    /// <summary>
+    /// ViewModel for the MainPage
+    /// </summary>
     public class MainPageViewModel : INotifyPropertyChanged
     {
         private decimal _gesamtGespart;
@@ -56,13 +56,20 @@ namespace SaveUp.ViewModels
         private readonly ISavedMoneyServiceAPI _savedMoneyService;
 
         public ICommand RefreshCommand { get; }
-
+        /// <summary>
+        /// Constructor for the MainPageViewModel
+        /// </summary>
+        /// <param name="savedMoneyService"></param>
         public MainPageViewModel(ISavedMoneyServiceAPI savedMoneyService)
         {
             _savedMoneyService = savedMoneyService;
             RefreshCommand = new Command(async () => await OnRefresh());
         }
 
+        /// <summary>
+        /// Load the saved money entries for today
+        /// </summary>
+        /// <returns></returns>
         public async Task LoadEinsparungen()
         {
             try
@@ -105,6 +112,10 @@ namespace SaveUp.ViewModels
             OnPropertyChanged(nameof(IsNoEntriesMessageVisible));
         }
 
+        /// <summary>
+        /// Refresh the Einsparungen
+        /// </summary>
+        /// <returns></returns>
         private async Task OnRefresh()
         {
             IsRefreshing = true;

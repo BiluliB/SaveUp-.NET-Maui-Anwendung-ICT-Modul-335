@@ -3,6 +3,9 @@ using SaveUpModels.Models;
 
 namespace SaveUpBackend.Interfaces
 {
+    /// <summary>
+    /// Interface for the MongoDbContext
+    /// </summary>
     public interface IMongoDbContext
     {
         CollectionWrapper<SavedMoney> SavedMoney { get; }

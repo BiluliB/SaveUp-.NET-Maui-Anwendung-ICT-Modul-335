@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SaveUp.Interfaces
+﻿namespace SaveUp.Interfaces
 {
+    /// <summary>
+    /// Interface for the Update
+    /// </summary>
     public interface IUpdate
     {
     }

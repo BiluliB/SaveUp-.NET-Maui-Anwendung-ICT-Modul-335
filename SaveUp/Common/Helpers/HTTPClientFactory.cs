@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SaveUp.Common.Helpers
+﻿namespace SaveUp.Common.Helpers
 {
     public static class HTTPClientFactory
     {
+        /// <summary>
+        /// Create a new HttpClient with the ability to ignore SSL certificate errors
+        /// </summary>
+        /// <returns></returns>
         public static HttpClient Create()
         {
             var client = new HttpClient(new HttpClientHandler()
@@ -16,7 +14,6 @@ namespace SaveUp.Common.Helpers
                 {
                     return true;
                 }
-
             });
             return client;
         }

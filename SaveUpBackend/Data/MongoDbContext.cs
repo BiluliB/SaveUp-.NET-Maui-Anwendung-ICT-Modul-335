@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using SaveUpBackend.Interfaces;
 using SaveUpModels.Models;
 
 namespace SaveUpBackend.Data
 {
+    /// <summary>
+    /// MongoDbContext for the MongoDB
+    /// </summary>
     public class MongoDbContext : IMongoDbContext
     {
         private readonly IMongoDatabase _database;
@@ -23,6 +25,9 @@ namespace SaveUpBackend.Data
             _database = client.GetDatabase(database);
         }
 
+        /// <summary>
+        /// Collection wrapper for the SavedMoney collection
+        /// </summary>
         public CollectionWrapper<SavedMoney> SavedMoney => new(_database, "SavedMoney");
 
         public CollectionWrapper<T> Get<T>() where T : BaseModel

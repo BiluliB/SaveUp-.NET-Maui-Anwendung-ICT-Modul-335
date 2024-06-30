@@ -1,17 +1,16 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Maui.Controls;
+﻿using Microsoft.Extensions.Configuration;
 using SaveUp.Interfaces;
 using SaveUp.Services;
 using SaveUpModels.DTOs.Requests;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace SaveUp.ViewModels
 {
+    /// <summary>
+    /// ViewModel for the AddPage
+    /// </summary>
     public class AddPageViewModel : INotifyPropertyChanged
     {
         private static AddPageViewModel _instance;
@@ -73,7 +72,6 @@ namespace SaveUp.ViewModels
                 }
             }
         }
-
         public bool IsNotBusy => !IsBusy;
 
         public ICommand AddCommand { get; }
@@ -81,15 +79,20 @@ namespace SaveUp.ViewModels
 
         private readonly ISavedMoneyServiceAPI _savedMoneyService;
 
+        /// <summary>
+        /// Constructor for the AddPageViewModel
+        /// </summary>
         public AddPageViewModel()
         {
             AddCommand = new Command(async () => await ExecuteAddCommandAsync(), () => IsNotBusy);
             CancelCommand = new Command(OnCancel);
 
-            // Dependency Injection kann hier verwendet werden
             _savedMoneyService = new SavedMoneyServiceAPI(new ConfigurationBuilder().Build());
         }
-
+        /// <summary>
+        /// Execute the AddCommand
+        /// </summary>
+        /// <returns></returns>
         public async Task ExecuteAddCommandAsync()
         {
             if (IsBusy) return;
@@ -97,7 +100,6 @@ namespace SaveUp.ViewModels
 
             try
             {
-                // Validierung der Eingabefelder
                 if (string.IsNullOrWhiteSpace(Kurzbeschreibung))
                 {
                     await Application.Current.MainPage.DisplayAlert("Fehler", "Bitte eine Kurzbeschreibung eingeben", "OK");
@@ -116,30 +118,26 @@ namespace SaveUp.ViewModels
                 {
                     Description = Kurzbeschreibung,
                     Price = preisValue,
-                    Date = SelectedDate // Verwenden des ausgewählten Datums
+                    Date = SelectedDate 
                 };
 
                 var response = await _savedMoneyService.CreateAsync(savedMoneyCreateDTO);
 
                 if (response != null && response.IsSuccess)
                 {
-                    // Zeige Erfolgsmeldung an
                     await Application.Current.MainPage.DisplayAlert("Erfolg", "Artikel erfolgreich hinzugefügt", "OK");
 
-                    // Leere die Eingabefelder nach erfolgreicher Übermittlung
                     Kurzbeschreibung = string.Empty;
                     Preis = string.Empty;
                     SelectedDate = DateTime.Now;
                 }
                 else
                 {
-                    // Zeige Fehlermeldung an
                     await Application.Current.MainPage.DisplayAlert("Fehler", "Fehler beim Hinzufügen des Artikels", "OK");
                 }
             }
             catch (Exception ex)
             {
-                // Zeige Fehlermeldung an
                 await Application.Current.MainPage.DisplayAlert("Fehler", "Ein Fehler ist aufgetreten: " + ex.Message, "OK");
             }
             finally
@@ -148,15 +146,14 @@ namespace SaveUp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Execute the CancelCommand
+        /// </summary>
         private void OnCancel()
         {
-            // Eingabefelder zurücksetzen
             Kurzbeschreibung = string.Empty;
             SelectedDate = DateTime.Now;
             Preis = string.Empty;
-
-            // Optional: Navigiere zurück zur vorherigen Seite
-            // Application.Current.MainPage.Navigation.PopAsync();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

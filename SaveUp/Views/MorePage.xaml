@@ -4,7 +4,7 @@
              x:Class="SaveUp.Views.MorePage">
 
     <Grid Padding="10" RowDefinitions="Auto, Auto, *, Auto" BackgroundColor="White">
-        <!-- Titel -->
+        <!-- Title -->
         <Label Text="SaveUp App" 
                FontSize="Large" 
                HorizontalOptions="Center" 
@@ -16,7 +16,7 @@
                HorizontalOptions="Center"
                Grid.Row="1" />
 
-        <!-- Entwickler und Name -->
+        <!-- Developer and name -->
         <StackLayout Grid.Row="2" VerticalOptions="Center" Spacing="15" Margin="5,10,5,0">
             <Label Text="Entwickler"
                    FontSize="Title"
@@ -32,7 +32,7 @@
             </Label>
         </StackLayout>
 
-        <!-- Danke Button -->
+        <!-- Thanks Button -->
         <StackLayout Grid.Row="3" VerticalOptions="Center" Spacing="15" Margin="5,10,5,0">
             <Label Text="Für eine kleine Spende:"
                    FontSize="Title"

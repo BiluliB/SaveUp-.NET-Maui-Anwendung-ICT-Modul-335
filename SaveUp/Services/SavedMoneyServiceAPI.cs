@@ -1,15 +1,15 @@
 ﻿using Microsoft.Extensions.Configuration;
 using SaveUp.Common;
-using SaveUpModels.DTOs.Responses;
-using SaveUpModels.DTOs.Requests;
 using SaveUp.Interfaces;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 using SaveUp.Models;
+using SaveUpModels.DTOs.Requests;
+using SaveUpModels.DTOs.Responses;
 
 namespace SaveUp.Services
 {
+    /// <summary>
+    /// Service for the SavedMoneyServiceAPI
+    /// </summary>
     public class SavedMoneyServiceAPI : BaseAPIService<SavedMoneyCreateDTO, IUpdate, SavedMoneyDTO>, ISavedMoneyServiceAPI
     {
         public SavedMoneyServiceAPI(IConfiguration configuration) : base(configuration, "SavedMoney")

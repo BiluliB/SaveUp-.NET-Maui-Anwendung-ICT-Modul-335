@@ -1,6 +1,8 @@
 ﻿namespace SaveUp.Interfaces
 {
-
+    /// <summary>
+    /// Interface for the BaseAPIService
+    /// </summary>
     public interface IBaseAPIServiceBase
     {
         HttpClient Client { get; }

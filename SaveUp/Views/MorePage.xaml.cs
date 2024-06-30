@@ -1,14 +1,18 @@
-using Microsoft.Maui.Controls;
-using System;
 using System.Windows.Input;
 
 namespace SaveUp.Views
 {
+    /// <summary>
+    /// MorePage
+    /// </summary>
     public partial class MorePage : ContentPage
     {
         public ICommand OpenPayPalCommand { get; private set; }
         public ICommand OpenDeveloperLinkCommand { get; private set; }
 
+        /// <summary>
+        /// Constructor for the MorePage
+        /// </summary>
         public MorePage()
         {
             InitializeComponent();
@@ -17,6 +21,9 @@ namespace SaveUp.Views
             BindingContext = this;
         }
 
+        /// <summary>
+        /// Open the PayPal donation page
+        /// </summary>
         private void OpenPayPal()
         {
             try
@@ -30,11 +37,14 @@ namespace SaveUp.Views
             }
         }
 
+        /// <summary>
+        /// Open the developer's GitHub page
+        /// </summary>
         private void OpenDeveloperLink()
         {
             try
             {
-                Uri uri = new Uri("https://github.com/BiluliB"); // Ersetzen Sie dies durch den tatsächlichen Link zum Entwicklerprofil oder zur Website
+                Uri uri = new Uri("https://github.com/BiluliB");
                 Launcher.OpenAsync(uri);
             }
             catch (Exception ex)

@@ -4,6 +4,9 @@ using SaveUpModels.DTOs.Responses;
 
 namespace SaveUp.Interfaces
 {
+    /// <summary>
+    /// Interface for the SavedMoneyServiceAPI
+    /// </summary>
     public interface ISavedMoneyServiceAPI
     {
         Task<HTTPResponse<SavedMoneyDTO>> CreateAsync(SavedMoneyCreateDTO savedMoneyCreateDTO);

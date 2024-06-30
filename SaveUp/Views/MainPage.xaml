@@ -6,14 +6,14 @@
              x:Name="MainPageView">
 
     <Grid Padding="10" RowDefinitions="Auto, *" BackgroundColor="White">
-        <!-- Titel -->
+        <!-- Title -->
         <Label Text="SaveUp" 
                Margin="0,0,0,10"
                FontSize="Large" 
                HorizontalOptions="Center" 
                Grid.Row="0" />
 
-        <!-- Einsparungen heute -->
+        <!-- Savings today -->
         <StackLayout Grid.Row="1" VerticalOptions="FillAndExpand" Spacing="0" Margin="5,10,5,0">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -63,7 +63,7 @@
                     </CollectionView.ItemTemplate>
                     <CollectionView.EmptyView>
                         <VerticalStackLayout>
-                            <!-- Keine Einträge für heute -->
+                            <!-- No entries for today -->
                             <Label Text="Keine Einträge für heute."
                             TextColor="Black"
                             FontAttributes="Bold"
@@ -71,7 +71,7 @@
                             IsVisible="{Binding IsNoEntriesMessageVisible}"
                             Grid.Row="2" />
 
-                            <!-- Allgemeine Fehlermeldung -->
+                            <!-- General error message -->
                             <Label Text="{Binding ErrorMessage}"
                             TextColor="Red"
                             HorizontalOptions="Center"

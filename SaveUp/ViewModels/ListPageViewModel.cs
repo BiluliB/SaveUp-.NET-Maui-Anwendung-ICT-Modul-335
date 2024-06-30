@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using SaveUp.Interfaces;
 using SaveUp.Services;
 using SaveUpModels.Models;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace SaveUp.ViewModels
 {
+    /// <summary>
+    /// ViewModel for the ListPage
+    /// </summary>
     public class ListPageViewModel : INotifyPropertyChanged
     {
         private static ListPageViewModel _instance;
@@ -60,6 +60,10 @@ namespace SaveUp.ViewModels
         public ICommand RefreshCommand { get; }
         public ICommand DeleteCommand { get; }
 
+        /// <summary>
+        /// Constructor for the ListPageViewModel
+        /// </summary>
+        /// <param name="savedMoneyService"></param>
         public ListPageViewModel(ISavedMoneyServiceAPI savedMoneyService)
         {
             _savedMoneyService = savedMoneyService;
@@ -67,6 +71,10 @@ namespace SaveUp.ViewModels
             DeleteCommand = new Command<SavedMoney>(OnDelete);
         }
 
+        /// <summary>
+        /// Load the articles from the database
+        /// </summary>
+        /// <returns></returns>
         public async Task LoadArtikel()
         {
             try
@@ -107,6 +115,10 @@ namespace SaveUp.ViewModels
             OnPropertyChanged(nameof(IsNoEntriesMessageVisible));
         }
 
+        /// <summary>
+        /// Refresh the articles
+        /// </summary>
+        /// <returns></returns>
         private async Task OnRefresh()
         {
             if (IsRefreshing) return;
@@ -116,6 +128,9 @@ namespace SaveUp.ViewModels
             IsRefreshing = false;
         }
 
+        /// <summary>
+        /// Sort the articles by date
+        /// </summary>
         private void SortArtikel()
         {
             var sorted = ArtikelListe.OrderByDescending(a => a.Date).ToList();
@@ -126,12 +141,19 @@ namespace SaveUp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Update the total saved amount
+        /// </summary>
         private void UpdateGesamtGespart()
         {
             _gesamtGespart = ArtikelListe.Sum(a => a.Price);
             OnPropertyChanged(nameof(GesamtGespartText));
         }
 
+        /// <summary>
+        /// Delete an article
+        /// </summary>
+        /// <param name="artikel"></param>
         private void OnDelete(SavedMoney artikel)
         {
             ArtikelListe.Remove(artikel);
